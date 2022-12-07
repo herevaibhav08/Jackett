@@ -14,4 +14,6 @@ services:
       - /usr/src:/downloads
     ports:
       - 9117:9117
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     restart: unless-stopped
