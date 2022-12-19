@@ -288,6 +288,7 @@ namespace Jackett.Updater
                 "Definitions/bigtower.yml",
                 "Definitions/bit-titan.yml",
                 "Definitions/bitbr.yml",
+                "Definitions/bitcityreloaded.yml",
                 "Definitions/bithq.yml",
                 "Definitions/bitme.yml",
                 "Definitions/bittorrentam.yml",
@@ -442,6 +443,8 @@ namespace Jackett.Updater
                 "Definitions/music-master.yml",
                 "Definitions/nachtwerk.yml",
                 "Definitions/nbtorrents.yml",
+                "Definitions/nbtorrents-api.yml",
+                "Definitions/netcosmo.yml",
                 "Definitions/netlab.yml",
                 "Definitions/newpct-me.yml",
                 "Definitions/nexttorrent.yml",
@@ -468,6 +471,7 @@ namespace Jackett.Updater
                 "Definitions/pirateiro.yml",
                 "Definitions/pleasuredome.yml",
                 "Definitions/polishtracker.yml",
+                "Definitions/pornbits.yml",
                 "Definitions/pornolive.yml",
                 "Definitions/pornorip.yml",
                 "Definitions/portugas.yml", // switch to *-API #13542
@@ -531,6 +535,7 @@ namespace Jackett.Updater
                 "Definitions/the-madhouse.yml",
                 "Definitions/themoviecave.yml",
                 "Definitions/theresurrection.yml",
+                "Definitions/theshinning.yml", // switch to *-API #13751
                 "Definitions/thespit.yml",
                 "Definitions/thetorrents.yml",
                 "Definitions/theunknown.yml", // became 3evils #9678
@@ -539,6 +544,7 @@ namespace Jackett.Updater
                 "Definitions/tntfork.yml",
                 "Definitions/tntvillage.yml",
                 "Definitions/topnow.yml",
+                "Definitions/torlook.yml",
                 "Definitions/toros.yml", // renamed to bulltorrent
                 "Definitions/torrent-paradise-ml.yml",
                 "Definitions/torrent4you.yml",
@@ -549,7 +555,7 @@ namespace Jackett.Updater
                 "Definitions/torrentgalaxyorg.yml", // renamed to torrentgalaxy
                 "Definitions/torrenthane.yml",
                 "Definitions/torrentkim.yml",
-                "Definitions/torrentland.yml", // switch to *-API #13006 #8682
+                "Definitions/torrentland-api.yml", // switch to HTML #13768
                 "Definitions/torrentmax.yml",
                 "Definitions/torrentparadise.yml",
                 "Definitions/torrentproject.yml",
@@ -578,6 +584,7 @@ namespace Jackett.Updater
                 "Definitions/ultimategamerclub.yml",
                 "Definitions/ultrahdclub.yml",
                 "Definitions/underverse.yml",
+                "Definitions/underversel.yml",
                 "Definitions/uniotaku.yml", // to be migrated to c#
                 "Definitions/utorrents.yml", // same as SzeneFZ now
                 "Definitions/vanila.yml",
