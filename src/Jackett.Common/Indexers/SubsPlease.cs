@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Jackett.Common.Models;
@@ -18,48 +17,66 @@ using NLog;
 namespace Jackett.Common.Indexers
 {
     [ExcludeFromCodeCoverage]
-    public class SubsPlease : BaseWebIndexer
+    public class SubsPlease : IndexerBase
     {
-        public override string[] AlternativeSiteLinks { get; protected set; } = {
+        public override string Id => "subsplease";
+        public override string Name => "SubsPlease";
+        public override string Description => "SubsPlease - A better HorribleSubs/Erai replacement";
+        public override string SiteLink { get; protected set; } = "https://subsplease.org/";
+        public override string[] AlternativeSiteLinks => new[]
+        {
             "https://subsplease.org/",
-            "https://subsplease.nocensor.lol/"
+            "https://subsplease.mrunblock.bond/",
+            "https://subsplease.nocensor.cloud/"
         };
-
-        public override string[] LegacySiteLinks { get; protected set; } = {
+        public override string[] LegacySiteLinks => new[]
+        {
             "https://subsplease.nocensor.space/",
             "https://subsplease.nocensor.work/",
             "https://subsplease.nocensor.biz/",
             "https://subsplease.nocensor.sbs/",
-            "https://subsplease.nocensor.world/"
+            "https://subsplease.nocensor.world/",
+            "https://subsplease.nocensor.lol/",
+            "https://subsplease.nocensor.art/",
+            "https://subsplease.mrunblock.guru/",
+            "https://subsplease.mrunblock.life/",
+            "https://subsplease.nocensor.click/",
         };
+        public override string Language => "en-US";
+        public override string Type => "public";
 
-        private string ApiEndpoint => SiteLink + "/api/?";
+        public override TorznabCapabilities TorznabCaps => SetCapabilities();
+
+        private string ApiEndpoint => SiteLink + "api/?";
 
         public SubsPlease(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l, IProtectionService ps, ICacheService cs)
-            : base(id: "subsplease",
-                   name: "SubsPlease",
-                   description: "SubsPlease - A better HorribleSubs/Erai replacement",
-                   link: "https://subsplease.org/",
-                   caps: new TorznabCapabilities
-                   {
-                       TvSearchParams = new List<TvSearchParam>
-                       {
-                           TvSearchParam.Q, TvSearchParam.Season, TvSearchParam.Ep
-                       }
-                   },
-                   configService: configService,
+            : base(configService: configService,
                    client: wc,
                    logger: l,
                    p: ps,
                    cacheService: cs,
                    configData: new ConfigurationData())
         {
-            Encoding = Encoding.UTF8;
-            Language = "en-US";
-            Type = "public";
+        }
 
-            // Configure the category mappings
-            AddCategoryMapping(1, TorznabCatType.TVAnime, "Anime");
+        private TorznabCapabilities SetCapabilities()
+        {
+            var caps = new TorznabCapabilities
+            {
+                TvSearchParams = new List<TvSearchParam>
+                {
+                    TvSearchParam.Q, TvSearchParam.Season, TvSearchParam.Ep
+                },
+                MovieSearchParams = new List<MovieSearchParam>
+                {
+                    MovieSearchParam.Q
+                }
+            };
+
+            caps.Categories.AddCategoryMapping(1, TorznabCatType.TVAnime);
+            caps.Categories.AddCategoryMapping(2, TorznabCatType.MoviesOther);
+
+            return caps;
         }
 
         public override async Task<IndexerConfigurationStatus> ApplyConfiguration(JToken configJson)
@@ -129,12 +146,16 @@ namespace Jackett.Common.Indexers
 
             // When there are no results, the API returns an empty array or empty response instead of an object
             if (string.IsNullOrWhiteSpace(json) || json == "[]")
+            {
                 return releaseInfo;
+            }
 
             var releases = JsonConvert.DeserializeObject<Dictionary<string, Release>>(json);
+
             foreach (var keyValue in releases)
             {
-                Release r = keyValue.Value;
+                var r = keyValue.Value;
+
                 var baseRelease = new ReleaseInfo
                 {
                     Details = new Uri(SiteLink + $"shows/{r.Page}/"),
@@ -148,6 +169,12 @@ namespace Jackett.Common.Indexers
                     DownloadVolumeFactor = 0,
                     UploadVolumeFactor = 1
                 };
+
+                if (r.Episode.ToLowerInvariant() == "movie")
+                {
+                    baseRelease.Category.Add(TorznabCatType.MoviesOther.ID);
+                }
+
                 foreach (var d in r.Downloads)
                 {
                     var release = (ReleaseInfo)baseRelease.Clone();
@@ -157,15 +184,32 @@ namespace Jackett.Common.Indexers
                     release.Link = null;
                     release.Guid = new Uri(d.Magnet);
 
-                    // The API doesn't tell us file size, so give an estimate based on resolution
-                    if (string.Equals(d.Res, "1080"))
-                        release.Size = 1395864371; // 1.3GB
-                    else if (string.Equals(d.Res, "720"))
-                        release.Size = 734003200; // 700MB
-                    else if (string.Equals(d.Res, "480"))
-                        release.Size = 367001600; // 350MB
+                    var sizeMatch = Regex.Match(d.Magnet, "&xl=\\d+");
+
+                    if (sizeMatch.Success)
+                    {
+                        release.Size = ParseUtil.CoerceLong(sizeMatch.Value.Replace("&xl=", string.Empty));
+                    }
                     else
-                        release.Size = 1073741824; // 1GB
+                    {
+                        // The API doesn't tell us file size, so give an estimate based on resolution
+                        if (string.Equals(d.Res, "1080"))
+                        {
+                            release.Size = 1395864371; // 1.3GB
+                        }
+                        else if (string.Equals(d.Res, "720"))
+                        {
+                            release.Size = 734003200; // 700MB
+                        }
+                        else if (string.Equals(d.Res, "480"))
+                        {
+                            release.Size = 367001600; // 350MB
+                        }
+                        else
+                        {
+                            release.Size = 1073741824; // 1GB
+                        }
+                    }
 
                     releaseInfo.Add(release);
                 }
