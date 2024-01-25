@@ -7,7 +7,7 @@ type: public
 encoding: UTF-8
 # to fetch current domain use https://www.protege-torrent.com/T911 and https://www.protege-torrent.com/Torrent911
 links:
-  - https://www.torrent911.pw/
+  - https://www.torrent911.cx/
   - https://www.t911.ws/
   - https://oxtorrent.unblockninja.com/
   - https://torrent911.ninjaproxy1.com/
@@ -39,11 +39,13 @@ legacylinks:
   - https://t911.org/
   - https://www.torrent911.io/
   - https://www.torrent911.biz/
+  - https://www.torrent911.pw/
 
 caps:
   categorymappings:
     - {id: Films, cat: Movies, desc: "Movies"}
     - {id: Animes, cat: TV/Anime, desc: "Anime"}
+    - {id: Documentaires, cat: TV/Documentary, desc: "Documentaires"}
     - {id: Séries, cat: TV, desc: "TV"}
     - {id: Musiques, cat: Audio, desc: "Music"}
     - {id: Ebooks, cat: Books, desc: "Books"}
