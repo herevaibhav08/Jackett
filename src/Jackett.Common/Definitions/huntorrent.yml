@@ -134,8 +134,13 @@ search:
     details:
       text: "details.php?id={{ .Result._id }}"
     download:
-      selector: a[href^="download.php?torrent="]
+      selector: a.download-link
       attribute: href
+      filters:
+        - name: replace
+          args: ["please_wait=1&", ""]
+        - name: replace
+          args: ["&please_wait=1", ""]
     genre:
       selector: "span[style=\"font-size: 6pt; font-weight: bold;\"]"
     description:

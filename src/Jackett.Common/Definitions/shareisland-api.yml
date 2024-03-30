@@ -22,6 +22,7 @@ caps:
     - {id: 7, cat: PC/Games, desc: "Games"}
     - {id: 23, cat: PC, desc: "Software"}
     - {id: 24, cat: TV/Sport, desc: "EVENTI SPORTIVI"}
+    - {id: 25, cat: Other, desc: "Misc"}
 
   modes:
     search: [q]
@@ -58,6 +59,10 @@ settings:
     options:
       desc: desc
       asc: asc
+  - name: info_activity
+    type: info
+    label: Account Inactivity
+    default: "After 60 days of no activity, your account will be automatically deleted."
 
 login:
   path: /api/torrents
@@ -69,8 +74,8 @@ login:
 
 search:
   paths:
-    # https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v7.0.0)
-    # https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/app/Http/Controllers/API/TorrentController.php#L349
+    # https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v8.x.x)
+    # https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/app/Http/Controllers/API/TorrentController.php#L476
     - path: "/api/torrents/filter"
       response:
         type: json
@@ -155,6 +160,8 @@ search:
       selector: meta.genres
       filters:
         - name: re_replace
+          args: ["(?i)^None$", ""]
+        - name: re_replace
           args: ["(?i)(televisione film)", "televisione_film"]
         - name: replace
           args: [" & ", "_&_"]
@@ -200,4 +207,4 @@ search:
     minimumseedtime:
       # 6 day (as seconds = 6 x 24 x 60 x 60)
       text: 518400
-# json UNIT3D 7.2.0 (custom)
+# json UNIT3D 7.2.5 (custom)

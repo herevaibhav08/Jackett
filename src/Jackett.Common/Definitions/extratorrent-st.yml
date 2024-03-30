@@ -7,17 +7,10 @@ type: public
 encoding: UTF-8
 links:
   - https://extratorrent.st/
-  - https://extratorrent.unblockit.date/
-  - https://extratorrent.mrunblock.bond/
-  - https://extratorrent.nocensor.cloud/
+  - https://extratorrent.unblockit.africa/
+  - https://extratorrent.ninjaproxy1.com/
+  - https://extratorrent.proxyninja.org/
 legacylinks:
-  - https://extratorrent.nocensor.work/
-  - https://extratorrent.nocensor.biz/
-  - https://extratorrent.nocensor.sbs/
-  - https://extratorrent.unblockit.nz/
-  - https://extratorrent.nocensor.world/
-  - https://extratorrent.unblockit.page/
-  - https://extratorrent.unblockit.pet/
   - https://extratorrent.nocensor.lol/
   - https://extratorrent.unblockit.ink/
   - https://extratorrent.nocensor.art/
@@ -35,6 +28,10 @@ legacylinks:
   - https://extratorrent.unblockit.zip/
   - https://extratorrent.unblockit.foo/
   - https://extratorrent.unblockit.ing/
+  - https://extratorrent.mrunblock.bond/
+  - https://extratorrent.nocensor.cloud/
+  - https://extratorrent.unblockit.date/
+  - https://extratorrent.unblockit.dad/
 
 caps:
   categorymappings:
@@ -90,7 +87,11 @@ caps:
     music-search: [q]
     book-search: [q]
 
-settings: []
+settings:
+  - name: flaresolverr
+    type: info
+    label: FlareSolverr
+    default: This site may use Cloudflare DDoS Protection, therefore Jackett requires <a href="https://github.com/Jackett/Jackett#configuring-flaresolverr" target="_blank">FlareSolverr</a> to access it.
 
 search:
   paths:

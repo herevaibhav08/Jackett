@@ -27,6 +27,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
 
  * ØMagnet
  * 1337x
+ * 52BT
  * ACG.RIP
  * Anidex
  * AniLibria
@@ -46,7 +47,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Byrutor
  * Cinecalidad
  * comicat
- * ConCen
  * cpasbien
  * cpasbienClone
  * CrackingPatching
@@ -60,6 +60,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * EXT Torrents
  * ExtraTorrent.st
  * EZTV
+ * Frozen Layer
  * GamesTorrents
  * GkTorrent
  * GloDLS
@@ -91,7 +92,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * NNTT
  * NoNaMe Club (NNM-Club)
  * Nyaa.si
- * OKPT
  * OneJAV
  * ParnuXi
  * PC-torrent
@@ -105,7 +105,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Seedoff
  * Sexy-Pics
  * Shana Project
- * ShizaProject
  * ShowRSS
  * SimpleAnime
  * Solid Torrents
@@ -133,14 +132,15 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TorrentSir (토렌트썰)
  * TorrentView (토렌트뷰)
  * TorrentWhiz (토렌트위즈)
- * Torrentz2eu
  * Torrentz2nz
  * TrahT
  * truPornolabs
+ * U3C3
  * UnionDHT
  * VSTHouse
  * VST Torrentz
  * VSTorrent
+ * Wolfmax4K
  * xxxAdultTorrent
  * XXXClub
  * xxxtor
@@ -152,9 +152,9 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
 <details> <summary> <b> Supported Semi-Private Trackers </b> </summary>
 
  * AniDUB
- * Anime-Free
  * AnimeLayer
  * ArenaBG
+ * BitMagnet (Local DHT) [[site](https://github.com/bitmagnet-io/bitmagnet)]
  * BookTracker
  * BootyTape
  * Catorrent
@@ -203,7 +203,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * RockBox
  * RUDUB (ex-BaibaKoTV)
  * Rustorka
- * RuTracker
+ * RuTracker.org
  * seleZen
  * Sharewood
  * SkTorrent
@@ -212,7 +212,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Toloka.to
  * TorrentMasters
  * Torrents-Local
- * TorrentDownload
  * TribalMixes
  * Union Fansub
  * UniOtaku
@@ -230,7 +229,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * 2xFree
  * 3ChangTrai (3CT)
  * 3D Torrents (3DT)
- * 3Wmg
  * 4thD (4th Dimension)
  * 52PT
  * 720pier
@@ -248,21 +246,21 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * AnimeTorrents (AnT)
  * AnimeTorrents.ro (Anime Torrents Romania)
  * AnimeWorld
- * AniToons
  * Anthelion
  * Araba Fenice (Phoenix) [![(invite needed)][inviteneeded]](#)
  * ArabP2P
  * ArabTorrents [![(invite needed)][inviteneeded]](#)
  * AsianCinema
  * AsianDVDClub
+ * AT-12 Project
  * Audiences
  * AudioNews (AN)
  * Aussierul.es [![(invite needed)][inviteneeded]](#)
  * AvistaZ (AsiaTorrents)
- * Azusa [![(invite needed)][inviteneeded]](#)
+ * Azusa (梓喵) [![(invite needed)][inviteneeded]](#)
  * Back-ups
  * BakaBT
- * BeiTai
+ * BeiTai (备胎)
  * Beload
  * Best-Core
  * BeyondHD (BHD)
@@ -283,7 +281,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Boxing Torrents
  * Brasil Tracker
  * BroadcasTheNet (BTN)
- * BroadCity
  * BrokenStones [![(invite needed)][inviteneeded]](#)
  * BrSociety
  * BTArg
@@ -294,26 +291,28 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Carp-Hunter
  * Carpathians
  * CarPT
- * CartoonChaos (CC)
  * Cathode-Ray.Tube (CRT)
  * Central Torrent
  * CeskeForum
  * CGPeers [![(invite needed)][inviteneeded]](#)
  * CHDBits [![(invite needed)][inviteneeded]](#)
- * cheggit
  * ChileBT
  * Cinemageddon [![(invite needed)][inviteneeded]](#)
  * CinemaMovieS_ZT
- * Cinematik [![(invite needed)][inviteneeded]](#)
+ * Cinematik
  * CinemaZ (EuTorrents)
  * Classix
  * Coastal-Crew
+ * ConCen [![(invite needed)][inviteneeded]](#)
  * Concertos
+ * CrabPT (蟹黄堡)
  * CrazySpirits
  * CrnaBerza
  * Dajiao (打胶) [![(invite needed)][inviteneeded]](#)
  * DANISH BYTES
+ * Darius Tracker
  * Dark-Shadow
+ * Das Unerwartete (D-U)
  * DataScene (DS)
  * DesiTorrents
  * Diablo Torrent
@@ -323,7 +322,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * DiscFan
  * DivTeam
  * DocsPedia
- * Dream Tracker
+ * Dream Tracker [![(invite needed)][inviteneeded]](#)
  * Drugari
  * Ebooks-Shares
  * Empornium (EMP) [![(invite needed)][inviteneeded]](#)
@@ -335,7 +334,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * ExtremeBits
  * Falkon Vision Team
  * FANO.IN [![(invite needed)][inviteneeded]](#)
- * Fantastiko
+ * Fantastiko [![(invite needed)][inviteneeded]](#)
  * Fappaizuri
  * FastScene
  * FearNoPeer
@@ -360,12 +359,12 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * GiroTorrent
  * GreatPosterWall (GPW)
  * GreekDiamond
+ * H-P2P
  * HaiDan
- * Haitang
+ * Hǎitáng (海棠PT)
  * HappyFappy
  * Hares Club (白兔俱乐部) [![(invite needed)][inviteneeded]](#)
  * Hawke-uno
- * HD Dolby
  * HD-Club
  * HD-Forever (HDF)
  * HD-Olimpo
@@ -377,34 +376,36 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * HDArea (HDA)
  * HDAtmos
  * HDBits [![(invite needed)][inviteneeded]](#)
- * HDC (HDCiTY) [![(invite needed)][inviteneeded]](#)
+ * HDCiTY (HDC) [![(invite needed)][inviteneeded]](#)
  * HDFans
  * HDFun (HDZone)
  * HDHome (HDBigger) [![(invite needed)][inviteneeded]](#)
- * HDMaYi
- * HDPT [![(invite needed)][inviteneeded]](#)
+ * HDMaYi (小蚂蚁PT站)
+ * HDPT (明教) [![(invite needed)][inviteneeded]](#)
  * HDRoute [![(invite needed)][inviteneeded]](#)
  * HDSky [![(invite needed)][inviteneeded]](#)
- * HDTime
+ * HDT-LaFenice
+ * HDtime
  * HDTorrents.it [![(invite needed)][inviteneeded]](#)
  * HDTurk
  * HDU
  * hdvbits
  * HDVIDEO
+ * Heavens-Hell
  * Hebits
  * HellasHut
  * HHanClub
- * HomePornTorrents (HPT)
  * House of Devil
  * HQMusic
  * iAnon
- * ICC2022
+ * ICC2022 (冰淇淋)
  * ImmortalSeed (iS)
  * Immortuos
  * Indietorrents [![(invite needed)][inviteneeded]](#)
  * Infire
  * Insane Tracker
  * IPTorrents (IPT)
+ * IrishTV
  * ItaTorrents
  * JME-REUNIT3D
  * JoyHD [![(invite needed)][inviteneeded]](#)
@@ -413,6 +414,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * KamePT [![(invite needed)][inviteneeded]](#)
  * Karagarga
  * Keep Friends [![(invite needed)][inviteneeded]](#)
+ * Kelu
  * KIMOJI
  * Korsar
  * KrazyZone
@@ -431,13 +433,13 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Lesbians4u
  * Libble
  * LibraNet (LN)
+ * LilleSky.org
  * LinkoManija
  * Locadora
  * LosslessClub [![(invite needed)][inviteneeded]](#)
  * LST
  * M-Team TP (MTTP)
  * MaDs Revolution
- * Magico (Trellas) [![(invite needed)][inviteneeded]](#)
  * Majomparádé (TurkDepo)
  * Making Off
  * Mansão dos Animes (MDAN)
@@ -461,6 +463,8 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * NorBits
  * NORDiCHD
  * Ntelogo
+ * OKPT
+ * Old Greek Tracker
  * Old Toons World
  * OpenCD [![(invite needed)][inviteneeded]](#)
  * Orpheus
@@ -474,9 +478,10 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * PassThePopcorn (PTP)
  * Peeratiko
  * Peers.FM
- * PigNetwork
+ * PigNetwork (猪猪网)
  * PixelCove (Ultimate Gamer)
  * PiXELHD (PxHD) [![(invite needed)][inviteneeded]](#)
+ * Polish Torrent (PTT)
  * PolishSource (PS)
  * PolishTracker
  * Pornbay [![(invite needed)][inviteneeded]](#)
@@ -485,18 +490,19 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Pretome
  * PrivateHD (PHD)
  * ProAudioTorrents (PAT)
+ * PT GTK
  * PT分享站 (itzmx)
- * PTCafe
+ * PTCafe (咖啡)
  * PTChina (铂金学院)
- * PTerClub
+ * PTerClub (PT之友俱乐部)
  * PTFiles (PTF)
  * PThome [![(invite needed)][inviteneeded]](#)
  * PTLSP
- * PTSBAO
+ * PTSBAO (烧包)
  * PTtime
  * Punk's Horror Tracker
  * PuntoTorrent
- * PuTao
+ * PuTao (葡萄)
  * PWTorrents (PWT)
  * R3V WTF!
  * Racing4Everyone (R4E)
@@ -505,13 +511,14 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Red Star Torrent (RST) [![(invite needed)][inviteneeded]](#)
  * Redacted (PassTheHeadphones)
  * RedBits
- * Red Leaves [![(invite needed)][inviteneeded]](#)
+ * Red Leaves (红叶) [![(invite needed)][inviteneeded]](#)
  * ReelFlix
  * Resurrect The Net [![(invite needed)][inviteneeded]](#)
  * RetroFlix
  * RevolutionTT
  * RM-HD
  * Romanian Metal Torrents (RMT)
+ * RoTorrent
  * Rousi
  * RPTScene (RPTorrents)
  * SATClubbing
@@ -530,7 +537,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * SkipTheTrailers
  * slosoul
  * SnowPT (SSPT)
- * SoulVoice
+ * SoulVoice (聆音Club)
  * SpeedApp (SceneFZ, XtreMeZone / MYXZ, ICE Torrent)
  * SpeedCD
  * Speedmaster HD [![(invite needed)][inviteneeded]](#)
@@ -548,12 +555,14 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TeamOS
  * TEKNO3D [![(invite needed)][inviteneeded]](#)
  * teracod (Movie Zone)
+ * TGay
  * The Crazy Ones
  * The Falling Angels (TFA)
  * The Geeks
  * The New Retro
  * The Occult [![(invite needed)][inviteneeded]](#)
  * The Old School
+ * The Paradiese
  * The Place [![(invite needed)][inviteneeded]](#)
  * The Shinning (TsH)
  * The Show
@@ -564,10 +573,11 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TheRebels
  * TheScenePlace (TSP)
  * Thor's Land
- * TJUPT
+ * TJUPT (北洋园PT)
  * TLFBits [![(invite needed)][inviteneeded]](#)
  * TmGHuB
  * Toca Share
+ * Tormac
  * Tornado
  * Torrent Network (TN)
  * Torrent Sector Crew (TSC)
@@ -590,16 +600,15 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TorrentLeech (TL)
  * TorrentLeech.pl
  * TorrentSeeds (TS)
- * TotallyKids (TK)
  * ToTheGlory (TTG) [![(invite needed)][inviteneeded]](#)
  * TrackerMK
  * TranceTraffic
+ * Trellas (Magico) [![(invite needed)][inviteneeded]](#)
  * TreZzoR [![(invite needed)][inviteneeded]](#)
  * TurkTorrent (TT)
  * TV Chaos UK (TVCUK)
  * TvRoad
  * TVstore
- * Twisted-Music
  * U2 (U2分享園@動漫花園) [![(invite needed)][inviteneeded]](#)
  * UBits
  * UHDBits
@@ -607,14 +616,14 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * UnionGang
  * Universal-Torrents
  * UnlimitZ
- * Upload.cx [![(invite needed)][inviteneeded]](#)
+ * upload.cx
  * UTOPIA
  * WDT (Wrestling Desires Torrents / Ultimate Wrestling Torrents)
  * White Angel
  * WinterSakura
  * World-In-HD [![(invite needed)][inviteneeded]](#)
  * World-of-Tomorrow
- * Wukong
+ * Wukong (悟空问道)
  * x-ite.me (XM)
  * xBytesV2
  * Xider-Torrent
@@ -623,7 +632,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * XtremeBytes
  * XWT-Classics
  * XWTorrents (XWT)
- * YDYPT
+ * YDYPT (伊甸园PT)
  * Zamunda.net
  * Zelka.org
  * ZmPT (织梦)
@@ -632,47 +641,10 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
 
 Trackers marked with [![(invite needed)][inviteneeded]](#) have no active maintainer and may be missing features or be broken. If you have an invite for them please send it to garfieldsixtynine -at- gmail.com or jacketttest -at- gmail.com to get them fixed/improved.
 
-### Aggregate indexers
+### Jackett Torznab query syntax
 
-A special "all" indexer is available at `/api/v2.0/indexers/all/results/torznab`.
-It will query all configured indexers and return the combined results.
-
-If your client supports multiple feeds it's recommended to add each indexer directly instead of using the all indexer.
-Using the all indexer has no advantages (besides reduced management overhead), the only disadvantages:
-* you lose control over indexer specific settings (categories, search modes, etc.)
-* mixing search modes (IMDB, query, etc.) might cause low-quality results
-* indexer specific categories (>= 100000) can't be used.
-* slow indexers will slow down the overall result
-* total results are limited to 1000
-
-To get all Jackett indexers including their capabilities you can use `t=indexers` on the all indexer. To get only configured/unconfigured indexers you can also add `configured=true/false` as a query parameter.
-
-### Filter indexers
-
-Another special "filter" indexer is available at `/api/v2.0/indexers/<filter>/results/torznab`
-It will query the configured indexers that match the `<filter>` expression criteria and return the combined results as "all".
-
-Supported filters
-Filter | Condition
--|-
-`type:<type>` | where the indexer type is equal to `<type>`
-`tag:<tag>` | where the indexer tags contains `<tag>`
-`lang:<tag>` | where the indexer language start with `<lang>`
-`test:{passed\|failed}` | where the last indexer test performed `passed` or `failed`
-`status:{healthy\|failing\|unknown}` | where the indexer state is `healthy` (successfully operates in the last minutes), `failing` (generates errors in the recent call) or `unknown` (unused for a while)
-
-Supported operators
-Operator | Condition
--|-
-`!<expr>` | where not `<expr>`
-`<expr1>+<expr2>[+<expr3>...]` | where `<expr1>` and `<expr2>` [and `<expr3>`...]
-`<expr1>,<expr2>[,<expr3>...]` | where `<expr1>` or `<expr2>` [or `<expr3>`...]
-
-Example 1:
-The "filter" indexer at `/api/v2.0/indexers/tag:group1,!type:private+lang:en/results/torznab` will query all the configured indexers tagged with `group1` or all the indexers not private and with `en` language (`en-en`,`en-us`,...)
-
-Example 2:
-The "filter" indexer at `/api/v2.0/indexers/!status:failing,test:passed` will query all the configured indexers not `failing` or which `passed` its last test.
+Jackett accepts Torznab queries following the specifications described in the [Torznab document](https://torznab.github.io/spec-1.3-draft/index.html).
+For example, `.../api/v2.0/indexers/<aJackettIndexerName>/results/torznab/api?apikey=<yourJackettApiKey>&t=caps` would return the capabilities of the indexer, and `.../api/v2.0/indexers/<aJackettIndexerName>/results/torznab/api?apikey=<yourJackettApiKey>&t=search&q=keywords` would perform a free text search on that indexer.
 
 ### Search modes and parameters
 
@@ -706,6 +678,48 @@ Examples:
 
 .../api?apikey=APIKEY&t=book&cat=5,6&genre=horror&publisher=Stuff
 ```
+
+### Filter indexers
+
+A special "filter" indexer is available at `.../api/v2.0/indexers/<filter>/results/torznab`
+It will query the configured indexers that match the `<filter>` expression criteria and return the combined results as "all".
+
+Supported filters
+Filter | Condition
+-|-
+`type:<type>` | where the indexer type is equal to `<type>`
+`tag:<tag>` | where the indexer tags contains `<tag>`
+`lang:<tag>` | where the indexer language start with `<lang>`
+`test:{passed\|failed}` | where the last indexer test performed `passed` or `failed`
+`status:{healthy\|failing\|unknown}` | where the indexer state is `healthy` (successfully operates in the last minutes), `failing` (generates errors in the recent call) or `unknown` (unused for a while)
+
+Supported operators
+Operator | Condition
+-|-
+`!<expr>` | where not `<expr>`
+`<expr1>+<expr2>[+<expr3>...]` | where `<expr1>` and `<expr2>` [and `<expr3>`...]
+`<expr1>,<expr2>[,<expr3>...]` | where `<expr1>` or `<expr2>` [or `<expr3>`...]
+
+Example 1:
+The "filter" indexer at `.../api/v2.0/indexers/tag:group1,!type:private+lang:en/results/torznab` will query all the configured indexers tagged with `group1` or all the indexers not private and with `en` language (`en-en`,`en-us`,...)
+
+Example 2:
+The "filter" indexer at `/api/v2.0/indexers/!status:failing,test:passed` will query all the configured indexers not `failing` or which `passed` its last test.
+
+### Aggregate indexers
+
+A special "all" indexer is available at `/api/v2.0/indexers/all/results/torznab`.
+It will query all configured indexers and return the combined results.
+
+If your client supports multiple feeds it's recommended to add each indexer directly instead of using the all indexer.
+Using the "all" indexer has no advantages (besides reduced management overhead), the only disadvantages:
+* you lose control over indexer specific settings (categories, search modes, etc.)
+* mixing search modes (IMDB, query, etc.) might cause low-quality results
+* indexer specific categories (>= 100000) can't be used.
+* slow indexers will slow down the overall result
+* total results are limited to 1000
+
+To get all Jackett indexers including their capabilities you can use `t=indexers` on the "all" indexer. To get only configured/unconfigured indexers you can also add `configured=true/false` as a query parameter.
 
 ## Installation on Windows
 We recommend you install Jackett as a Windows service using the supplied installer. You may also download the zipped version if you would like to configure everything manually.
@@ -856,7 +870,7 @@ configuration or even disable the cache. Keep in mind that you can be banned by 
 If you have enabled the Jackett internal cache, but have an indexer for which you would prefer to fetch fresh results (thus ignoring the internal cache) then add the **&cache=false** parameter to your torznab query.
 
 ## Configuring FlareSolverr
-Some indexers are protected by CloudFlare or similar services and Jackett is not able to solve the challenges.
+Some indexers are protected by Cloudflare or similar services and Jackett is not able to solve the challenges.
 For these cases, [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) has been integrated into Jackett. This service is in charge of solving the challenges and configuring Jackett with the necessary cookies.
 Setting up this service is optional, most indexers don't need it.
 * Install FlareSolverr service (following their instructions)

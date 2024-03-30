@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp.Html.Parser;
+using Jackett.Common.Extensions;
 using Jackett.Common.Models;
 using Jackett.Common.Models.IndexerConfig;
 using Jackett.Common.Services.Interfaces;
@@ -30,13 +31,12 @@ namespace Jackett.Common.Indexers
             "https://www.iptorrents.com/",
             "https://iptorrents.me/",
             "https://nemo.iptorrents.com/",
-            "https://ipt.getcrazy.me/",
-            "https://ipt.findnemo.net/",
-            "https://ipt.beelyrics.net/",
-            "https://ipt.venom.global/",
-            "https://ipt.workisboring.net/",
-            "https://ipt.lol/",
+            "https://ip.findnemo.net/",
+            "https://ip.venom.global/",
+            "https://ip.getcrazy.me/",
+            "https://ip.workisboring.net/",
             "https://ipt.cool/",
+            "https://ipt.lol/",
             "https://ipt.world/",
             "https://ipt.octopus.town/"
         };
@@ -50,7 +50,12 @@ namespace Jackett.Common.Indexers
             "http://logan.unusualperson.com/",
             "https://ipt.rocks/",
             "http://baywatch.workisboring.com/",
-            "https://iptorrents.eu/"
+            "https://iptorrents.eu/",
+            "https://ipt.getcrazy.me/",
+            "https://ipt.findnemo.net/",
+            "https://ipt.beelyrics.net/",
+            "https://ipt.venom.global/",
+            "https://ipt.workisboring.net/"
         };
         public override string Language => "en-US";
         public override string Type => "private";
@@ -83,6 +88,7 @@ namespace Jackett.Common.Indexers
             configData.AddDynamic("sort", sort);
 
             configData.AddDynamic("freeleech", new BoolConfigurationItem("Search freeleech only") { Value = false });
+            configData.AddDynamic("Account Inactivity", new DisplayInfoConfigurationItem("Account Inactivity", "All members are required to log into their account at least every 89 days or you will be deleted without warning."));
         }
 
         private TorznabCapabilities SetCapabilities()
@@ -187,7 +193,7 @@ namespace Jackett.Common.Indexers
         {
             base.LoadValuesFromJson(jsonConfig, useProtectionService);
 
-            webclient?.AddTrustedCertificate(new Uri(SiteLink).Host, "44E390F897BC01083CE3DB0E8266A210735470E3"); // for *.octopus.town  expired 02/Sep/23
+            webclient?.AddTrustedCertificate(new Uri(SiteLink).Host, "1C54573353A97C17DD2344E9E7094848046A8CDA"); // for *.octopus.town  expired 01/Mar/24
         }
 
         public override async Task<IndexerConfigurationStatus> ApplyConfiguration(JToken configJson)
@@ -291,9 +297,16 @@ namespace Jackett.Common.Indexers
                 searchQuery.Add($"+({query.Genre})");
             }
 
-            if (!string.IsNullOrWhiteSpace(query.GetQueryString()))
+            var searchTerm = query.GetQueryString();
+
+            if (searchTerm.IsNotNullOrWhiteSpace())
             {
-                searchQuery.Add($"+({query.GetQueryString()})");
+                if (query.GetEpisodeSearchString().IsNotNullOrWhiteSpace() && query.Season > 0 && query.Episode.IsNullOrWhiteSpace())
+                {
+                    searchTerm += "*";
+                }
+
+                searchQuery.Add($"+({searchTerm})");
             }
 
             if (searchQuery.Any())

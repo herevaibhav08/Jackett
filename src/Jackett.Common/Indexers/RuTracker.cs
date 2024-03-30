@@ -24,8 +24,8 @@ namespace Jackett.Common.Indexers
     public class RuTracker : IndexerBase
     {
         public override string Id => "rutracker";
-        public override string Name => "RuTracker";
-        public override string Description => "RuTracker is a Semi-Private Russian torrent site with a thriving file-sharing community";
+        public override string Name => "RuTracker.org";
+        public override string Description => "RuTracker.org is a Semi-Private Russian torrent site with a thriving file-sharing community";
         public override string SiteLink { get; protected set; } = "https://rutracker.org/";
         public override string[] AlternativeSiteLinks => new[]
         {
@@ -1519,7 +1519,7 @@ namespace Jackett.Common.Indexers
             //  replace any space, special char, etc. with % (wildcard)
             if (!string.IsNullOrWhiteSpace(searchString))
             {
-                searchString = new Regex("[^a-zA-Zа-яА-Я0-9]+").Replace(searchString, "%");
+                searchString = new Regex("[^a-zA-Zа-яА-ЯёЁ0-9]+").Replace(searchString, "%");
             }
 
             // if the search string is empty use the getnew view
