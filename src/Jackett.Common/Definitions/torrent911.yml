@@ -7,16 +7,12 @@ type: public
 encoding: UTF-8
 # to fetch current domain use https://www.protege-torrent.com/Torrent911 and https://www.protege-torrent.com/T911 and https://www.protege-torrent.com/Oxtorrent
 links:
-  - https://www.t911.ws/
-  - https://www.oxtorrent.nl/
+  - https://www.oxtorrent.wtf/
   - https://oxtorrent.proxyninja.org/ # proxy for oxtorrent
 legacylinks:
   - https://www.protege-liens.com/
   - https://www.rantop.org/
-  - https://www.t911.net/
-  - https://www.torrent911.cc/
   - https://www.t911.me/
-  - https://www.torrent911.tv/
   - https://www.t911.tv/
   - https://torrent911.ws/
   - http://www.torrent911.ws/
@@ -35,6 +31,10 @@ legacylinks:
   - https://oxtorrent.unblockninja.com/ # proxy for torrent911
   - https://torrent911.ninjaproxy1.com/ # proxy for torrent911
   - https://torrent9.torrentbay.st/ # proxy for torrent911
+  - https://www.t911.ws/
+  - https://www.t911.pw/ # now on poster layout
+  - https://www.oxtorrent.nl/
+  - https://www.oxtorrent.sbs/
 
 caps:
   categorymappings:
@@ -110,16 +110,8 @@ search:
     category:
       selector: td:nth-child(1) i
       attribute: class
-    title_href:
-      # used by t911
-      selector: td:nth-child(1) a[href]
-      optional: true
-    title_onclick:
-      # used by oxtorrent
-      selector: td:nth-child(1) a[onclick]
-      optional: true
     title_phase1:
-      text: "{{ or .Result.title_href .Result.title_onclick }}"
+      selector: td:nth-child(1) a
       filters:
         - name: re_replace
           args: ["(?i)\\b(FRENCH|MULTI|TRUEFRENCH|VOSTFR|SUBFRENCH)\\b(.+?)(\\b(19|20\\d{2})\\b)$", "$3 $1$2"]

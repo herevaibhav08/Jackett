@@ -76,7 +76,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Knaben
  * LePorno.info
  * LimeTorrents
- * LimeTorrents clone
  * LinuxTracker
  * Mac Torrents Download
  * MegaPeer
@@ -212,6 +211,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Toloka.to
  * TorrentMasters
  * Torrents-Local
+ * TorrentDownload
  * TribalMixes
  * Union Fansub
  * UniOtaku
@@ -252,7 +252,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * ArabTorrents [![(invite needed)][inviteneeded]](#)
  * AsianCinema
  * AsianDVDClub
- * AT-12 Project
  * Audiences
  * AudioNews (AN)
  * Aussierul.es [![(invite needed)][inviteneeded]](#)
@@ -288,6 +287,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * BTSCHOOL
  * BWTorrents
  * BYRBT
+ * CapybaraBR
  * Carp-Hunter
  * Carpathians
  * CarPT
@@ -336,7 +336,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * FANO.IN [![(invite needed)][inviteneeded]](#)
  * Fantastiko [![(invite needed)][inviteneeded]](#)
  * Fappaizuri
- * FastScene
  * FearNoPeer
  * Femdomcult
  * FileList (FL)
@@ -399,6 +398,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * HQMusic
  * iAnon
  * ICC2022 (冰淇淋)
+ * ilolicon PT
  * ImmortalSeed (iS)
  * Immortuos
  * Indietorrents [![(invite needed)][inviteneeded]](#)
@@ -504,6 +504,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * PuntoTorrent
  * PuTao (葡萄)
  * PWTorrents (PWT)
+ * Qingwa (青蛙)
  * R3V WTF!
  * Racing4Everyone (R4E)
  * RacingForMe (RFM)
@@ -517,6 +518,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * RetroFlix
  * RevolutionTT
  * RM-HD
+ * RocketHD
  * Romanian Metal Torrents (RMT)
  * RoTorrent
  * Rousi
@@ -570,7 +572,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * The-New-Fun
  * TheEmpire (TE)
  * TheLeachZone (TLZ)
- * TheRebels
  * TheScenePlace (TSP)
  * Thor's Land
  * TJUPT (北洋园PT)

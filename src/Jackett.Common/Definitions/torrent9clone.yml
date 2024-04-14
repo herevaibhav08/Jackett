@@ -8,7 +8,7 @@ encoding: UTF-8
 followredirect: true
 # to fetch current domain use https://www.protege-torrent.com/Torrent9
 links:
-  - https://www.torrent9.sbs/
+  - https://www.torrent9.sb/
   - https://torrent9.unblockninja.com/
 legacylinks:
   - https://www.protege-liens.net/
@@ -31,6 +31,7 @@ legacylinks:
   - https://www.torrent9.mn/
   - https://www.torrent9.city/
   - https://www.torrent9.gy/
+  - https://www.torrent9.sbs/
 
 caps:
   categorymappings:
@@ -127,12 +128,22 @@ search:
           args: ["(?i)\\b(MULTI(?!.*(?:FRENCH|ENGLISH|VOSTFR)))\\b", "{{ .Config.multilanguage }}"]
     title:
       text: "{{ if .Config.multilang }}{{ .Result.title_multilang }}{{ else }}{{ .Result.title_phase2 }}{{ end }}"
-    details:
-      selector: td:nth-child(1) a
-      attribute: onclick
+    details_href:
+      selector: td:nth-child(1) a[href]
+      attribute: href
+      optional: true
       filters:
         - name: regexp
           args: (/?torrent/\d+)
+    details_onclick:
+      selector: td:nth-child(1) a[onclick]
+      attribute: onclick
+      optional: true
+      filters:
+        - name: regexp
+          args: (/?torrent/\d+)
+    details:
+      text: "{{ or .Result.details_href .Result.details_onclick }}"
     download:
       text: "{{ .Result.details }}"
     date:

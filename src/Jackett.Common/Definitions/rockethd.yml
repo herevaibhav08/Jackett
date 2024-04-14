@@ -1,17 +1,17 @@
 ---
-id: at12project
-name: AT-12 Project
-description: "AT-12 Project is a Private Torrent Tracker for JAPANESE MOVIES / TV"
-language: en-US
+id: rockethd
+name: RocketHD
+description: "RocketHD is a GERMAN Private Torrent Tracker for MOVIES / TV"
+language: de-DE
 type: private
 encoding: UTF-8
 links:
-  - https://at-12project.cc/
+  - https://r0k3t.li/
 
 caps:
   categorymappings:
-    - {id: 7, cat: Movies, desc: "MOVIE"}
-    - {id: 8, cat: TV, desc: "TV"}
+    - {id: 1, cat: Movies, desc: "Movies"}
+    - {id: 2, cat: TV, desc: "TV"}
 
   modes:
     search: [q]
@@ -25,7 +25,7 @@ settings:
   - name: info_key
     type: info
     label: About your API key
-    default: "Find or Generate a new API Token by accessing your <a href=\"https://at-12project.cc/\" target=\"_blank\">AT-12 Project</a> account <i>My Settings</i> page and clicking on the <b>API Key</b> tab."
+    default: "Find or Generate a new API Token by accessing your <a href=\"https://r0k3t.li/\" target=\"_blank\">RocketHD</a> account <i>My Settings</i> page and clicking on the <b>API Key</b> tab."
   - name: freeleech
     type: checkbox
     label: Search freeleech only
@@ -157,11 +157,15 @@ search:
       case:
         False: 1 # normal
         True: 2 # double
-    minimumratio:
-      text: 1.0
+# global MR is 0.4 but torrents must be seeded for 7 days regardless of ratio
+#    minimumratio:
+#      text: 0.4
+    minimumseedtime:
+      # 5 days (as seconds = 5 x 24 x 60 x 60)
+      text: 432000
     title_filename:
       selector: "files[0].name"
       optional: true
     title:
       text: "{{ if and (.Config.single_file_release_use_filename) (eq .Result.files \"1\") (.Result.title_filename) }}{{ .Result.title_filename }}{{ else }}{{ .Result.title_optional }}{{ end }}"
-# json UNIT3D 8.0.0
+# json UNIT3D 8.0.2

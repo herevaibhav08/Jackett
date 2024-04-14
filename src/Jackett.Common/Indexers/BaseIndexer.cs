@@ -165,7 +165,7 @@ namespace Jackett.Common.Indexers
 
         protected virtual IEnumerable<ReleaseInfo> FilterResults(TorznabQuery query, IEnumerable<ReleaseInfo> results)
         {
-            var filteredResults = results.Where(IsValidRelease).ToList();
+            var filteredResults = results.Where(r => IsValidRelease(r, query.InteractiveSearch)).ToList();
 
             // filter results with wrong categories
             if (query.Categories.Length > 0)
@@ -237,11 +237,31 @@ namespace Jackett.Common.Indexers
             return fixedResults;
         }
 
-        protected virtual bool IsValidRelease(ReleaseInfo release)
+        protected virtual bool IsValidRelease(ReleaseInfo release, bool interactiveSearch)
         {
             if (release.Title.IsNullOrWhiteSpace())
             {
-                logger.Error("Invalid Release: '{0}' from indexer: {1}. No title provided.", release.Details, Name);
+                logger.Error("[{0}] Invalid Release: '{1}'. No title provided.", Id, release.Details);
+
+                return false;
+            }
+
+            if (interactiveSearch)
+            {
+                // Show releases with issues in the interactive search
+                return true;
+            }
+
+            if (release.Size == null)
+            {
+                logger.Warn("[{0}] Invalid Release: '{1}'. No size provided.", Id, release.Details);
+
+                return false;
+            }
+
+            if (release.Category == null || !release.Category.Any())
+            {
+                logger.Warn("[{0}] Invalid Release: '{1}'. No categories provided.", Id, release.Details);
 
                 return false;
             }
