@@ -1,31 +1,24 @@
 ---
-id: mendigosdaweb
-name: Mendigos da WEB
-description: "Mendigos da WEB is a PORTUGUESE Private Torrent Tracker for MOVIES / TV / GENERAL"
-language: pt-PT
+id: plusteca
+name: Plusteca
+description: "Plusteca is a BRAZILIAN Private Torrent Tracker for MOVIES / TV"
+language: pt-BR
 type: private
 encoding: UTF-8
 links:
-  - https://mendigosdaweb.cc/
+  - https://plusteca.com/
 
 caps:
   categorymappings:
-    - {id: 6, cat: Other, desc: "Cursos"}
-    - {id: 7, cat: Books/EBook, desc: "Livros"}
-    - {id: 8, cat: Audio/Audiobook, desc: "AudioBooks"}
-    - {id: 9, cat: Other, desc: "Material de Apoio"}
-    - {id: 1, cat: Movies, desc: "Filmes"}
-    - {id: 2, cat: TV, desc: "TV Séries"}
-    - {id: 10, cat: Console, desc: "Jogos"}
-    - {id: 5, cat: PC, desc: "Aplicativos"}
-    - {id: 12, cat: XXX, desc: "Adulto"}
+    - {id: 1, cat: Movies, desc: "Filme"}
+    - {id: 2, cat: TV, desc: "Seriado"}
+    - {id: 4, cat: PC/Games, desc: "Jogo"}
+    - {id: 5, cat: PC/0day, desc: "Aplicativo"}
 
   modes:
     search: [q]
     tv-search: [q, season, ep, imdbid, tvdbid, tmdbid]
     movie-search: [q, imdbid, tmdbid]
-    book-search: [q]
-    music-search: [q]
 
 settings:
   - name: apikey
@@ -34,7 +27,7 @@ settings:
   - name: info_key
     type: info
     label: About your API key
-    default: "Find or Generate a new API Token by accessing your <a href=\"https://mendigosdaweb.cc/\" target=\"_blank\">Mendigos da WEB</a> account <i>My Settings</i> page and clicking on the <b>API Key</b> tab."
+    default: "Find or Generate a new API Token by accessing your <a href=\"https://plusteca.com/\" target=\"_blank\">Plusteca</a> account <i>My Security</i> page and clicking on the <b>API Token</b> tab."
   - name: freeleech
     type: checkbox
     label: Search freeleech only
@@ -55,10 +48,6 @@ settings:
     options:
       desc: desc
       asc: asc
-  - name: info_activity
-    type: info
-    label: Account Inactivity
-    default: "Your account will be considered inactive if it goes more than 90 days without you logging into the website. After 90 days of inactivity (that is, 90 days without logging in) it will be deleted from the tracker. Attention: The groups that suffer due to inactivity are: Homeless and Leech."
 
 login:
   path: /api/torrents
@@ -88,7 +77,7 @@ search:
     imdbId: "{{ .Query.IMDBIDShort }}"
     tmdbId: "{{ .Query.TMDBID }}"
     tvdbId: "{{ .Query.TVDBID }}"
-    "free[]": "{{ if .Config.freeleech }}100{{ else }}{{ end }}"
+    free: "{{ if .Config.freeleech }}1{{ else }}{{ end }}"
     sortField: "{{ .Config.sort }}"
     sortDirection: "{{ .Config.type }}"
     perPage: 100
@@ -113,7 +102,7 @@ search:
     infohash:
       selector: info_hash
     poster:
-      selector: meta.poster
+      selector: poster
       filters:
         - name: replace
           args: ["https://via.placeholder.com/90x135", ""]
@@ -123,19 +112,6 @@ search:
       selector: tmdb_id
     tvdbid:
       selector: tvdb_id
-    genre:
-      selector: meta.genres
-      filters:
-        - name: re_replace
-          args: ["(?i)^None$", ""]
-        - name: re_replace
-          args: ["(?i)(Ficção científica)", "Ficção_científica"]
-        - name: re_replace
-          args: ["(?i)(Cinema TV)", "Cinema_TV"]
-        - name: replace
-          args: [" & ", "_&_"]
-    description:
-      text: "{{ .Result.genre }}"
     files:
       selector: num_file
     seeders:
@@ -165,15 +141,12 @@ search:
         100%: 0 # freeleech
         "*": 0 # catch errors
     uploadvolumefactor:
-      # api returns False, True
+      # api returns 0=false, 1=true
       selector: double_upload
       case:
-        False: 1 # normal
-        True: 2 # double
-# global MR is 1.0 but torrents must be seeded for 7 days regardless of ratio
-#    minimumratio:
-#      text: 1.0
+        0: 1 # normal
+        1: 2 # double
     minimumseedtime:
       # 7 days (as seconds = 7 x 24 x 60 x 60)
       text: 604800
-# json UNIT3D 7.1.0
+# json UNIT3D 6.3.0

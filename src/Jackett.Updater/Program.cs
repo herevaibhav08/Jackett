@@ -415,6 +415,7 @@ namespace Jackett.Updater
                 "Definitions/greeklegends.yml",
                 "Definitions/greekteam.yml",
                 "Definitions/gtorrent.yml",
+                "Definitions/gtorrentpro.yml",
                 "Definitions/hachede-c.yml",
                 "Definitions/hachede.yml",
                 "Definitions/hamsterstudio.yml",
@@ -491,6 +492,7 @@ namespace Jackett.Updater
                 "Definitions/manicomioshare.yml",
                 "Definitions/mediamaatjes.yml",
                 "Definitions/megabliz.yml",
+                "Definitions/mendigosdaweb.yml",
                 "Definitions/metal-iplay-ro.yml", // renamed to romanianmetaltorrents
                 "Definitions/microbit.yml",
                 "Definitions/mkvcage.yml",
@@ -501,6 +503,7 @@ namespace Jackett.Updater
                 "Definitions/movcr.yml",
                 "Definitions/moviesite.yml",
                 "Definitions/movietorrent.yml", // will need c# #11284
+                "Definitions/movieworld.yml",
                 "Definitions/moviezone.yml", // migrated to teracod #9743
                 "Definitions/mteamtp.yml", // migrated to C# (API)
                 "Definitions/mteamtp2fa.yml", // migrated to C# (API)
@@ -540,6 +543,7 @@ namespace Jackett.Updater
                 "Definitions/pixelados.yml",
                 "Definitions/pixelados-html.yml",
                 "Definitions/pleasuredome.yml",
+                "Definitions/polishsource.yml",
                 "Definitions/polishtracker.yml",
                 "Definitions/pornbits.yml",
                 "Definitions/pornforall.yml",
@@ -695,6 +699,7 @@ namespace Jackett.Updater
                 "Definitions/worldwidetorrents.yml",
                 "Definitions/woot.yml",
                 "Definitions/xbit.yml",
+                "Definitions/xbytes2.yml",
                 "Definitions/xfsub.yml",
                 "Definitions/xktorrent.yml",
                 "Definitions/xtremefile.yml",
