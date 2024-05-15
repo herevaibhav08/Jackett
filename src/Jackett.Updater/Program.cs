@@ -415,7 +415,6 @@ namespace Jackett.Updater
                 "Definitions/greeklegends.yml",
                 "Definitions/greekteam.yml",
                 "Definitions/gtorrent.yml",
-                "Definitions/gtorrentpro.yml",
                 "Definitions/hachede-c.yml",
                 "Definitions/hachede.yml",
                 "Definitions/hamsterstudio.yml",
@@ -439,6 +438,7 @@ namespace Jackett.Updater
                 "Definitions/hdspain.yml",
                 "Definitions/hdstreet.yml",
                 "Definitions/hdzone.yml", // renamed to hdfun
+                "Definitions/heavens-hell.yml",
                 "Definitions/hellastz.yml",
                 "Definitions/hidden-palace.yml",
                 "Definitions/homeporntorrents.yml",
@@ -570,6 +570,7 @@ namespace Jackett.Updater
                 "Definitions/renegade.yml",
                 "Definitions/retroflix.yml", // migrated to C#
                 "Definitions/rgu.yml",
+                "Definitions/rmhd.yml",
                 "Definitions/rns.yml", // site merged with audiobooktorrents
                 "Definitions/rockhardlossless.yml",
                 "Definitions/rodvd.yml",
@@ -675,6 +676,7 @@ namespace Jackett.Updater
                 "Definitions/turknova.yml",
                 "Definitions/turkseed.yml",
                 "Definitions/turktracker.yml",
+                "Definitions/tvroad.yml",
                 "Definitions/twilight.yml",
                 "Definitions/twilightszoom.yml",
                 "Definitions/twisted-music.yml",
@@ -686,6 +688,7 @@ namespace Jackett.Updater
                 "Definitions/underverse.yml",
                 "Definitions/underversel.yml",
                 "Definitions/uniotaku.yml", // to be migrated to c#
+                "Definitions/universaltorrents.yml",
                 "Definitions/unleashthecartoons.yml",
                 "Definitions/uploads.yml",
                 "Definitions/utorrents.yml", // same as SzeneFZ now

@@ -1,26 +1,29 @@
 ---
-id: nicept
-name: NicePT
-description: "NicePT is a CHINESE Private Torrent Tracker for 3X"
+id: ptvicomo
+name: PTVicomo
+description: "PTVicomo is a CHINESE Private torrent tracker for MOVIES / TV / GENERAL"
 language: zh-CN
 type: private
 encoding: UTF-8
 links:
-  - https://www.nicept.net/
+  - https://ptvicomo.net/
 
 caps:
   categorymappings:
-    - {id: 500, cat: XXX, desc: "日本有码"}
-    - {id: 401, cat: XXX, desc: "日本无码"}
-    - {id: 402, cat: XXX, desc: "欧美"}
-    - {id: 501, cat: XXX, desc: "其他（限制级）"}
-    - {id: 403, cat: XXX/Other, desc: "动漫（限制级）"}
-    - {id: 503, cat: XXX, desc: "真人秀，自拍（限制级）"}
-    - {id: 404, cat: XXX/ImageSet, desc: "写真、套图"}
-    - {id: 504, cat: XXX, desc: "SM调教（限制级）"}
+    - {id: 401, cat: Movies, desc: "电影"}
+    - {id: 402, cat: TV, desc: "剧集"}
+    - {id: 405, cat: TV/Anime, desc: "动漫"}
+    - {id: 415, cat: TV, desc: "短剧"}
+    - {id: 404, cat: TV/Documentary, desc: "纪录片"}
+    - {id: 403, cat: TV, desc: "综艺"}
+    - {id: 409, cat: Audio, desc: "音乐"}
+    - {id: 406, cat: Audio/Video, desc: "MV"}
 
   modes:
     search: [q]
+    tv-search: [q, season, ep, imdbid, doubanid]
+    movie-search: [q, imdbid, doubanid]
+    music-search: [q]
 
 settings:
   - name: username
@@ -35,7 +38,7 @@ settings:
   - name: info_2fa
     type: info
     label: "About 2FA code"
-    default: "Only fill in the <b>2FA code</b> box if you have enabled <b>2FA</b> on the NicePT Web Site. Otherwise just leave it empty."
+    default: "Only fill in the <b>2FA code</b> box if you have enabled <b>2FA</b> on the PTVicomo Web Site. Otherwise just leave it empty."
   - name: freeleech
     type: checkbox
     label: Search freeleech only
@@ -63,7 +66,7 @@ settings:
   - name: info_activity
     type: info
     label: Account Inactivity
-    default: "Account retention rules:<ol><li>Veteran Users users and above will be retained forever</li><li>Elite Users and above will not have their account deleted after parking (in the Control Panel)</li><li>Users with a parked account will be deleted if they do not log in for 400 consecutive days</li><li>Users with a non-parked account will be banned if they do not log in for 40 consecutive days</li><li>Users with no traffic (ie, upload/download data are both 0) will be banned if they do not log in for 7 consecutive days.</li></ol>"
+    default: "Account retention rules:<ol><li>Extreme User (county road) and above will be retained forever</li><li>Veteran User (rural rank) and above will be retained forever if parked</li><li>Users with a parked account will be banned if they do not log in for 0 consecutive days</li><li><li>Users with no traffic (ie, upload/download data are both 0) will be banned if they do not log in for 90 consecutive days.</li></ol>"
 
 login:
   path: login.php
@@ -78,6 +81,10 @@ login:
     username: "{{ .Config.username }}"
     password: "{{ .Config.password }}"
     two_step_code: "{{ .Config.2facode }}"
+    logout: ""
+    securelogin: ""
+    ssl: yes
+    trackerssl: yes
   error:
     - selector: td.embedded:has(h2:contains("失败"))
   test:
@@ -89,14 +96,14 @@ search:
     - path: torrents.php
   inputs:
     $raw: "{{ range .Categories }}cat{{.}}=1&{{end}}"
-    search: "{{ .Keywords }}"
+    search: "{{ if .Query.IMDBID }}{{ .Query.IMDBID }}{{ else }}{{ end }}{{ if or .Query.IMDBID .Query.DoubanID }} {{ else }}{{ .Keywords }}{{ end }}{{ if .Query.DoubanID }}{{ .Query.DoubanID }}{{ else }}{{ end }}"
     # 0 incldead, 1 active, 2 dead
     incldead: 0
     # 0 all, 1 normal, 2 free, 3 2x, 4 2xfree, 5 50%, 6 2x50%, 7 30%
     spstate: "{{ if .Config.freeleech }}2{{ else }}0{{ end }}"
-    # 0 title, 1 descr, 3 uploader, 4 imdburl (unused)
-    search_area: 0
-    # 0 AND, 1 OR, 2 exact
+    # 0 title, 1 descr, 3 uploader, 4 imdburl (working but not for douban)
+    search_area: "{{ if or .Query.IMDBID .Query.DoubanID }}1{{ else }}0{{ end }}"
+    # 0 AND, 2 exact
     search_mode: 0
     sort: "{{ .Config.sort }}"
     type: "{{ .Config.type }}"
@@ -125,12 +132,22 @@ search:
     download:
       selector: a[href^="download.php?id="]
       attribute: href
+    # site does not have posters enabled. just in case a future update.
     poster:
       selector: img[data-src]
       attribute: data-src
+    imdbid:
+      # site currently only has a badge and rating, the id is not present. just in case a future update.
+      selector: a[href*="imdb.com/title/tt"]
+      attribute: href
+    doubanid:
+      # site currently only has a badge and rating, the id is not present. just in case a future update.
+      selector: a[href*="movie.douban.com/subject/"]
+      attribute: href
+    # the number of comments do not show up despite user web settings option to enable, throws child count off by 1
     date_elapsed:
       # time type: time elapsed (default)
-      selector: td.rowfollow:nth-child(4) > span[title]
+      selector: td.rowfollow:nth-child(3) span[title]
       attribute: title
       optional: true
       filters:
@@ -140,7 +157,7 @@ search:
           args: "yyyy-MM-dd HH:mm:ss zzz"
     date_added:
       # time added
-      selector: td.rowfollow:nth-child(4):not(:has(span))
+      selector: td.rowfollow:nth-child(3):not(:has(span))
       optional: true
       filters:
         - name: append
@@ -150,13 +167,13 @@ search:
     date:
       text: "{{ if or .Result.date_elapsed .Result.date_added }}{{ or .Result.date_elapsed .Result.date_added }}{{ else }}now{{ end }}"
     size:
-      selector: td.rowfollow:nth-child(5)
+      selector: td.rowfollow:nth-child(4)
     seeders:
-      selector: td.rowfollow:nth-child(6)
+      selector: td.rowfollow:nth-child(5)
     leechers:
-      selector: td.rowfollow:nth-child(7)
+      selector: td.rowfollow:nth-child(6)
     grabs:
-      selector: td.rowfollow:nth-child(8)
+      selector: td.rowfollow:nth-child(7)
     downloadvolumefactor:
       case:
         img.pro_free: 0
@@ -174,17 +191,17 @@ search:
     minimumratio:
       text: 1.0
     minimumseedtime:
-      # 3 days (as seconds = 3 x 24 x 60 x 60)
-      text: 259200
+      # 1 day (as seconds = 24 x 60 x 60)
+      text: 86400
     description_verified:
       case:
-        span[title="通过"], span[title="通過"], span[title="Allowed"]: "Verified:"
-        span[title="未审"], span[title="未審"], span[title="Not reviewed"]: "Unverified:"
-        span[title="拒绝"], span[title="拒絕"], span[title="Denied"]: "Banned:"
+        span[title="通过"], span[title="Allowed"]: "Verified:"
+        span[title="未审"], span[title="Not reviewed"]: "Unverified:"
+        span[title="拒绝"], span[title="Denied"]: "Banned:"
     description:
       selector: td.rowfollow:nth-child(2)
       remove: a, b, font, img, span
       filters:
         - name: prepend
           args: "{{ .Result.description_verified }} "
-# NexusPHP v1.8.11 2024-03-27
+# NexusPHP v1.8.12 2024-04-05 (custom)

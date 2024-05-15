@@ -1,48 +1,26 @@
 ---
-id: gktorrent
-name: GkTorrent
-description: "GkTorrent is a French Public site for TV / MOVIES / GENERAL"
+id: oxtorrent-co
+name: OxTorrent
+description: "OxTorrent is a FRENCH Public Torrent Tracker for TV / MOVIES / GENERAL"
 language: fr-FR
 type: public
 encoding: UTF-8
-followredirect: true
-# to fetch current domain use https://www.protege-torrent.com/Gktorrent
 links:
-  - https://www.gktorrent.xyz/
+  - https://www.oxtorrent.co/
+  - https://oxtorrent.unblockit.ong/
 legacylinks:
-  - https://www.rantop.org/
-  - https://gktorrent.mrunblock.guru/
-  - https://gktorrent.mrunblock.life/
-  - https://gktorrent.nocensor.click/
-  - https://www.gktorrent.ac/
-  - https://www.gktorrent.ph/
-  - https://www.gktorrent.vc/
-  - https://www.gktorrent.mx/
-  - https://www.gktorrent.fi/
-  - https://www.gktorrent.wf/
-  - https://gktorrent.nocensor.cloud/
-  - https://gktorrent.mrunblock.bond/
-  - https://www.gktorrent.wtf/
-  - https://www.gktorrent.vg/
-  - https://www.gktorrent.lol/
-  - https://www.gktorrent.sh/
-  - https://www.gktorrent.eu/
+  - https://oxtorrent.unblockit.casa/
+  - https://oxtorrent.unblockit.sbs/
 
 caps:
   categorymappings:
     - {id: Films, cat: Movies, desc: "Movies"}
-    - {id: Animes, cat: TV/Anime, desc: "Anime"}
-    - {id: Séries, cat: TV, desc: "TV Series"}
-    - {id: Spectacles, cat: TV, desc: "TV Shows"}
-    - {id: Documentaires, cat: TV/Documentary, desc: "Documentaries"}
-    - {id: Sports, cat: TV/Sport, desc: "Sport"}
-    - {id: Musiques, cat: Audio, desc: "Music"}
-    - {id: Ebooks, cat: Books, desc: "Books"}
-    - {id: Livres, cat: Books, desc: "Books"}
+    - {id: Séries, cat: TV, desc: "TV"}
+    - {id: Musique, cat: Audio, desc: "Music"}
+    - {id: Ebook, cat: Books, desc: "EBooks"}
     - {id: Logiciels, cat: PC, desc: "Software"}
     - {id: Jeux-PC, cat: PC/Games, desc: "PC Games"}
-    - {id: Jeux-Consoles, cat: Console/XBox 360, desc: "Console Games"}
-    - {id: Porno, cat: XXX, desc: "XXX"}
+    - {id: Jeux-Consoles, cat: Console, desc: "Console Games"}
 
   modes:
     search: [q]
@@ -86,7 +64,7 @@ search:
   paths:
     - path: "{{ if .Keywords }}recherche/{{ .Keywords }}{{ else }}{{ end }}"
   keywordsfilters:
-    # if searching for season packs swith S01 to saison 1 #9712
+    # if searching for season packs switch S01 to saison 1 #9712
     - name: re_replace
       args: ["(?i)(S0)(\\d{1,2})$", "saison $2"]
     - name: re_replace
@@ -94,10 +72,12 @@ search:
 
   rows:
     selector: table.table-hover > tbody > tr
+    filters:
+      - name: andmatch
 
   fields:
     category:
-      selector: td:nth-child(1) > i
+      selector: td:nth-child(1) i
       attribute: class
     title_phase1:
       selector: td:nth-child(1) a
@@ -121,9 +101,6 @@ search:
     details:
       selector: td:nth-child(1) a
       attribute: href
-      filters:
-        - name: regexp
-          args: (/?torrent/\d+)
     download:
       text: "{{ .Result.details }}"
     size:

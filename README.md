@@ -64,6 +64,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * GamesTorrents
  * GkTorrent
  * GloDLS
+ * GTorrent.pro
  * Idope
  * Il Corsaro Nero
  * Internet Archive (archive.org)
@@ -91,6 +92,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * NoNaMe Club (NNM-Club)
  * Nyaa.si
  * OneJAV
+ * OxTorrent
  * ParnuXi
  * PC-torrent
  * PornoTorrent
@@ -267,6 +269,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Bitded
  * Bithorlo (BHO)
  * BitHUmen [![(invite needed)][inviteneeded]](#)
+ * Bitpalace
  * BitPorn
  * Bitspyder
  * BitTorrentFiles
@@ -389,12 +392,12 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * HDU
  * hdvbits
  * HDVIDEO
- * Heavens-Hell
  * Hebits
  * HellasHut
  * HHanClub
  * House of Devil
  * HQMusic
+ * HUDBT (蝴蝶) [![(invite needed)][inviteneeded]](#)
  * iAnon
  * ICC2022 (冰淇淋)
  * ilolicon PT
@@ -422,7 +425,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Last Digital Underground (LDU)
  * LastFiles
  * LaidBackManor
- * Lat-Team [![(invite needed)][inviteneeded]](#)
+ * Lat-Team
  * Le Saloon [![(invite needed)][inviteneeded]](#)
  * Le-Cinephile
  * LearnBits
@@ -498,6 +501,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * PTLSP
  * PTSBAO (烧包) [![(invite needed)][inviteneeded]](#)
  * PTtime
+ * PTVicomo
  * Punk's Horror Tracker
  * PuntoTorrent
  * PuTao (葡萄)
@@ -515,7 +519,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Resurrect The Net [![(invite needed)][inviteneeded]](#)
  * RetroFlix
  * RevolutionTT
- * RM-HD
  * RocketHD
  * Romanian Metal Torrents (RMT)
  * RoTorrent
@@ -604,16 +607,15 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TranceTraffic
  * Trellas (Magico) [![(invite needed)][inviteneeded]](#)
  * TreZzoR
+ * TurkSeed
  * TurkTorrent (TT)
  * TV Chaos UK (TVCUK)
- * TvRoad
  * TVstore
  * U2 (U2分享園@動漫花園) [![(invite needed)][inviteneeded]](#)
  * UBits
  * UHDBits
  * UltraHD
  * UnionGang
- * Universal-Torrents
  * UnlimitZ
  * upload.cx
  * UTOPIA
@@ -737,7 +739,7 @@ When installed as a service the tray icon acts as a way to open/start/stop Jacke
 Jackett can also be run from the command line if you would like to see log messages (Ensure the server isn't already running from the tray/service). This can be done by using "JackettConsole.exe" (for Command Prompt), found in the Jackett data folder: "%ProgramData%\Jackett".
 
 
-## Install on Linux (AMDx64)
+## Installation on Linux (AMDx64)
 On most operating systems all the required dependencies will already be present. In case they are not, you can refer to this page https://github.com/dotnet/core/blob/master/Documentation/linux-prereqs.md
 
 ### Install as service
@@ -757,7 +759,7 @@ Download and extract the latest `Jackett.Binaries.LinuxAMDx64.tar.gz` release fr
 If you want to run it with a user without a /home directory you need to add `Environment=XDG_CONFIG_HOME=/path/to/folder` to your systemd file, this folder will be used to store your config files.
 
 
-## Install on Linux (ARMv7 or above)
+## Installation on Linux (ARMv7 or above)
 On most operating systems all the required dependencies will already be present. In case they are not, you can refer to this page https://github.com/dotnet/core/blob/master/Documentation/linux-prereqs.md
 
 ### Install as service
@@ -794,9 +796,8 @@ On a CentOS/RedHat 7 system: [jewflix.jackett](https://galaxy.ansible.com/jewfli
 On an Ubuntu 16 system: [chrisjohnson00.jackett](https://galaxy.ansible.com/chrisjohnson00/jackett)
 
 
-### Installation on Linux or macOS via Homebrew
-
-[Homebrew Formulae - Jackett](https://formulae.brew.sh/formula/jackett)
+## Unistallation on Linux
+`wget https://raw.githubusercontent.com/Jackett/Jackett/master/uninstall_service_systemd.sh --quiet -O -|sudo bash`
 
 
 ## Installation on macOS
@@ -814,6 +815,15 @@ Logs are stored as usual under `~/.config/Jackett/log.txt`.
 
 ### Run without installing as a service
 Download and extract the latest `Jackett.Binaries.macOS.tar.gz` or `Jackett.Binaries.macOSARM64.tar.gz` release from the [releases page](https://github.com/Jackett/Jackett/releases) and run Jackett with the command `./jackett`.
+
+
+## Unistallation on macOS
+`curl -sSL https://raw.githubusercontent.com/Jackett/Jackett/master/uninstall_jackett_macos| bash`
+
+
+## Installation on Linux or macOS via Homebrew
+
+[Homebrew Formulae - Jackett](https://formulae.brew.sh/formula/jackett)
 
 
 ## Installation using Docker

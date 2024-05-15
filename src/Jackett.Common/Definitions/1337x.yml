@@ -21,9 +21,6 @@ links:
 legacylinks:
   - https://1337x.is/
   - https://1337x.gd/
-  - https://1337x.nocensor.art/
-  - https://1337x.unblockit.bio/
-  - https://1337x.unblockit.boo/
   - https://1337x.mrunblock.guru/
   - https://1337x.mrunblock.life/
   - https://1337x.unblockit.click/
@@ -40,6 +37,8 @@ legacylinks:
   - https://1337x.unblockit.dad/
   - https://1337x.unblockit.africa/
   - https://1337x.unblockit.casa/ # 502
+  - https://unblockit.sbs/ # 502
+  - https://unblockit.ong/ # 502
 
 caps:
   categorymappings:
