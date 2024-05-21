@@ -216,7 +216,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Union Fansub
  * UniOtaku
  * xTorrenty
- * YggTorrent (YGG)
  * ZOMB
  * Ztracker
 </details>
@@ -229,7 +228,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * 2xFree
  * 3ChangTrai (3CT)
  * 3D Torrents (3DT)
- * 4thD (4th Dimension)
+ * 4thD (4th Dimension) [![(invite needed)][inviteneeded]](#)
  * 52PT
  * 720pier
  * Abnormal
@@ -259,11 +258,10 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Azusa (梓喵) [![(invite needed)][inviteneeded]](#)
  * Back-ups
  * BakaBT [![(invite needed)][inviteneeded]](#)
- * BeiTai (备胎)
  * Beload
  * Best-Core
  * BeyondHD (BHD)
- * Bibliotik
+ * Bibliotik [![(invite needed)][inviteneeded]](#)
  * Bit-Bázis
  * BIT-HDTV
  * Bitded
@@ -325,7 +323,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * DocsPedia
  * Dream Tracker [![(invite needed)][inviteneeded]](#)
  * Drugari
- * Ebooks-Shares
+ * Ebooks-Shares [![(invite needed)][inviteneeded]](#)
  * Empornium (EMP) [![(invite needed)][inviteneeded]](#)
  * Enthralled
  * eShareNet
@@ -341,7 +339,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * FearNoPeer
  * Femdomcult
  * FileList (FL)
- * FinElite (FE) [![(invite needed)][inviteneeded]](#)
+ * FinElite (FE)
  * FinVip
  * Flux-Zone
  * Free Farm (自由农场)
@@ -366,12 +364,13 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * HappyFappy
  * Hares Club (白兔俱乐部) [![(invite needed)][inviteneeded]](#)
  * Hawke-uno
+ * HD Dolby
  * HD-Club [![(invite needed)][inviteneeded]](#)
  * HD-Forever (HDF) [![(invite needed)][inviteneeded]](#)
- * HD-Olimpo
+ * HD-Olimpo [![(invite needed)][inviteneeded]](#)
  * HD-Only (HDO)
  * HD-Space (HDS)
- * HD-Torrents (HDT)
+ * HD-Torrents (HDT) [![(invite needed)][inviteneeded]](#)
  * HD-UNiT3D
  * HD4FANS [![(invite needed)][inviteneeded]](#)
  * HDArea (HDA)
@@ -453,7 +452,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * MNV (Max-New-Vision)
  * MOJBLiNK
  * MonikaDesign (MDU)
- * MoreThanTV (MTV)
+ * MoreThanTV (MTV) [![(invite needed)][inviteneeded]](#)
  * MouseBits
  * Movie-Torrentz
  * MyAnonamouse (MAM)
@@ -484,7 +483,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * PiXELHD (PxHD) [![(invite needed)][inviteneeded]](#)
  * Plusteca
  * Polish Torrent (PTT)
- * PolishTracker
+ * PolishTracker [![(invite needed)][inviteneeded]](#)
  * Pornbay [![(invite needed)][inviteneeded]](#)
  * Portugas
  * PotUK
@@ -503,11 +502,11 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * PTtime
  * PTVicomo
  * Punk's Horror Tracker
- * PuntoTorrent
+ * PuntoTorrent [![(invite needed)][inviteneeded]](#)
  * PuTao (葡萄)
  * PWTorrents (PWT)
  * Qingwa (青蛙)
- * R3V WTF!
+ * R3V WTF! [![(invite needed)][inviteneeded]](#)
  * Racing4Everyone (R4E)
  * RacingForMe (RFM)
  * RareShare2
@@ -518,7 +517,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * ReelFlix
  * Resurrect The Net [![(invite needed)][inviteneeded]](#)
  * RetroFlix
- * RevolutionTT
+ * RevolutionTT [![(invite needed)][inviteneeded]](#)
  * RocketHD
  * Romanian Metal Torrents (RMT)
  * RoTorrent
@@ -590,7 +589,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TOrrent-tuRK (TORK)
  * Torrent.LT
  * TorrentBD
- * TorrentBytes (TBy)
+ * TorrentBytes (TBy) [![(invite needed)][inviteneeded]](#)
  * TorrentCCF (TCCF)
  * TorrentDay (TD)
  * TorrentDD
@@ -628,18 +627,19 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * x-ite.me (XM)
  * Xider-Torrent
  * XSpeeds (XS)
- * Xthor
+ * Xthor [![(invite needed)][inviteneeded]](#)
  * XtremeBytes
  * XWT-Classics
  * XWTorrents (XWT)
  * YDYPT (伊甸园PT)
+ * YggTorrent (YGG)
  * Zamunda.net
  * Zelka.org
  * ZmPT (织梦)
- * ZonaQ
+ * ZonaQ [![(invite needed)][inviteneeded]](#)
 </details>
 
-Trackers marked with [![(invite needed)][inviteneeded]](#) have no active maintainer and may be missing features or be broken. If you have an invite for them please send it to garfieldsixtynine -at- gmail.com or jacketttest -at- gmail.com to get them fixed/improved.
+Trackers marked with [![(invite needed)][inviteneeded]](#) have no active maintainer and may be broken or missing features. If you have an invite please send it to jacketttest [at] gmail [dot] com or garfieldsixtynine [at] gmail [dot] com get them fixed/improved.
 
 ### Jackett Torznab query syntax
 
@@ -745,15 +745,15 @@ On most operating systems all the required dependencies will already be present.
 ### Install as service
 A) Command to download and install the latest package and run the Jackett service:
 
-`cd /opt && f=Jackett.Binaries.LinuxAMDx64.tar.gz && release=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O - | grep "title>Release" | cut -d " " -f 4) && sudo wget -Nc https://github.com/Jackett/Jackett/releases/download/$release/"$f" && sudo tar -xzf "$f" && sudo rm -f "$f" && cd Jackett* && sudo ./install_service_systemd.sh && systemctl status jackett.service && cd - && echo -e "\nVisit http://127.0.0.1:9117"`
+`cd /opt && f=Jackett.Binaries.LinuxAMDx64.tar.gz && sudo wget -Nc https://github.com/Jackett/Jackett/releases/latest/download/"$f" && sudo tar -xzf "$f" && sudo rm -f "$f" && cd Jackett* && sudo ./install_service_systemd.sh && systemctl status jackett.service && cd - && echo -e "\nVisit http://127.0.0.1:9117"`
 
 B) Or manually:
 
-1. Download and extract the latest `Jackett.Binaries.LinuxAMDx64.tar.gz` release from the [releases page](https://github.com/Jackett/Jackett/releases)
+1. Download and extract the latest `Jackett.Binaries.LinuxAMDx64.tar.gz` release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page
 2. To install Jackett as a service, open a Terminal, cd to the jackett folder, and run `sudo ./install_service_systemd.sh` You need root permissions to install the service. The service will start on each logon. You can always stop it by running `systemctl stop jackett.service` from Terminal. You can start it again using `systemctl start jackett.service`. Logs are stored as usual under `~/.config/Jackett/log.txt` and also in `journalctl -u jackett.service`.
 
 ### Run without installing as a service
-Download and extract the latest `Jackett.Binaries.LinuxAMDx64.tar.gz` release from the [releases page](https://github.com/Jackett/Jackett/releases), open a Terminal, cd to the jackett folder, and run Jackett with the command `./jackett`
+Download and extract the latest `Jackett.Binaries.LinuxAMDx64.tar.gz` release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page, open a Terminal, cd to the jackett folder, and run Jackett with the command `./jackett`
 
 ### home directory
 If you want to run it with a user without a /home directory you need to add `Environment=XDG_CONFIG_HOME=/path/to/folder` to your systemd file, this folder will be used to store your config files.
@@ -763,11 +763,11 @@ If you want to run it with a user without a /home directory you need to add `Env
 On most operating systems all the required dependencies will already be present. In case they are not, you can refer to this page https://github.com/dotnet/core/blob/master/Documentation/linux-prereqs.md
 
 ### Install as service
-1. Download and extract the latest `Jackett.Binaries.LinuxARM32.tar.gz` or `Jackett.Binaries.LinuxARM64.tar.gz` (32 bit is the most common on ARM) release from the [releases page](https://github.com/Jackett/Jackett/releases)
+1. Download and extract the latest `Jackett.Binaries.LinuxARM32.tar.gz` or `Jackett.Binaries.LinuxARM64.tar.gz` (32 bit is the most common on ARM) release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page
 2. To install Jackett as a service, open a Terminal, cd to the jackett folder, and run `sudo ./install_service_systemd.sh` You need root permissions to install the service. The service will start on each logon. You can always stop it by running `systemctl stop jackett.service` from Terminal. You can start it again using `systemctl start jackett.service`. Logs are stored as usual under `~/.config/Jackett/log.txt` and also in `journalctl -u jackett.service`.
 
 ### Run without installing as a service
-Download and extract the latest `Jackett.Binaries.LinuxARM32.tar.gz` or `Jackett.Binaries.LinuxARM64.tar.gz` (32 bit is the most common on ARM) release from the [releases page](https://github.com/Jackett/Jackett/releases), open a Terminal, cd to the jackett folder and run Jackett with the command `./jackett`
+Download and extract the latest `Jackett.Binaries.LinuxARM32.tar.gz` or `Jackett.Binaries.LinuxARM64.tar.gz` (32 bit is the most common on ARM) release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page, open a Terminal, cd to the jackett folder and run Jackett with the command `./jackett`
 
 ### home directory
 If you want to run it with a user without a /home directory you need to add `Environment=XDG_CONFIG_HOME=/path/to/folder` to your systemd file, this folder will be used to store your config files.
@@ -781,7 +781,7 @@ If you want to run it with a user without a /home directory you need to add `Env
        * Debian/Ubuntu: `apt-get install libcurl4-openssl-dev`
        * Redhat/Fedora: `yum install libcurl-devel`
        * For other distros see the  [Curl docs](http://curl.haxx.se/dlwiz/?type=devel).
- 3. Download and extract the latest `Jackett.Binaries.Mono.tar.gz` release from the [releases page](https://github.com/Jackett/Jackett/releases) and run Jackett using mono with the command `mono --debug JackettConsole.exe`.
+ 3. Download and extract the latest `Jackett.Binaries.Mono.tar.gz` release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page and run Jackett using mono with the command `mono --debug JackettConsole.exe`.
  4. (Optional) To install Jackett as a service, open the Terminal and run `sudo ./install_service_systemd_mono.sh` You need root permissions to install the service. The service will start on each logon. You can always stop it by running `systemctl stop jackett.service` from Terminal. You can start it again it using `systemctl start jackett.service`. Logs are stored as usual under `~/.config/Jackett/log.txt` and also in `journalctl -u jackett.service`.
 
 If you want to run it with a user without a /home directory you need to add `Environment=XDG_CONFIG_HOME=/path/to/folder` to your systemd file, this folder will be used to store your config files.
@@ -806,7 +806,7 @@ On an Ubuntu 16 system: [chrisjohnson00.jackett](https://galaxy.ansible.com/chri
 macOS 10.15+ or greater
 
 ### Install as service
-1. Download and extract the latest `Jackett.Binaries.macOS.tar.gz` or `Jackett.Binaries.macOSARM64.tar.gz` release from the [releases page](https://github.com/Jackett/Jackett/releases).
+1. Download and extract the latest `Jackett.Binaries.macOS.tar.gz` or `Jackett.Binaries.macOSARM64.tar.gz` release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page.
 2. Open the extracted folder and double-click on `install_service_macos`.
 3. If the installation was a success, you can close the Terminal window.
 
@@ -814,7 +814,7 @@ The service will start on each logon. You can always stop it by running `launchc
 Logs are stored as usual under `~/.config/Jackett/log.txt`.
 
 ### Run without installing as a service
-Download and extract the latest `Jackett.Binaries.macOS.tar.gz` or `Jackett.Binaries.macOSARM64.tar.gz` release from the [releases page](https://github.com/Jackett/Jackett/releases) and run Jackett with the command `./jackett`.
+Download and extract the latest `Jackett.Binaries.macOS.tar.gz` or `Jackett.Binaries.macOSARM64.tar.gz` release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page and run Jackett with the command `./jackett`.
 
 
 ## Unistallation on macOS

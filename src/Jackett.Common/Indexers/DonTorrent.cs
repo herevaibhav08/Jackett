@@ -27,10 +27,10 @@ namespace Jackett.Common.Indexers
         public override string Name => "DonTorrent";
         public override string Description => "DonTorrent is a SPANISH public tracker for MOVIES / TV / GENERAL";
         // in the event the redirect is inactive https://t.me/s/dontorrent should have the latest working domain
-        public override string SiteLink { get; protected set; } = "https://dontorrent.clothing/";
+        public override string SiteLink { get; protected set; } = "https://dontorrent.icu/";
         public override string[] AlternativeSiteLinks => new[]
         {
-            "https://dontorrent.clothing/",
+            "https://dontorrent.icu/",
             "https://todotorrents.org/",
             "https://tomadivx.net/",
             "https://seriesblanco.one/",
@@ -39,7 +39,6 @@ namespace Jackett.Common.Indexers
         };
         public override string[] LegacySiteLinks => new[]
         {
-            "https://dontorrent.contact/",
             "https://dontorrent.cymru/",
             "https://dontorrent.capetown/",
             "https://dontorrent.yokohama/",
@@ -54,6 +53,7 @@ namespace Jackett.Common.Indexers
             "https://dontorrent.boutique/",
             "https://dontorrent.miami/",
             "https://dontorrent.business/",
+            "https://dontorrent.clothing/",
         };
         public override string Language => "es-ES";
         public override string Type => "public";
@@ -275,8 +275,7 @@ namespace Jackett.Common.Indexers
         private async Task<List<ReleaseInfo>> PerformQuerySearch(TorznabQuery query, bool matchWords)
         {
             var releases = new List<ReleaseInfo>();
-            // search only the longest word, we filter the results later
-            var searchTerm = GetLongestWord(query.SearchTerm);
+            var searchTerm = query.SearchTerm;
             var url = SiteLink + SearchUrl + searchTerm;
             var result = await RequestWithCookiesAsync(url, referer: url);
             if (result.Status != HttpStatusCode.OK)
@@ -735,18 +734,6 @@ namespace Jackett.Common.Indexers
                 .Where(categoryMap => url.Contains(categoryMap.Key))
                 .Select(categoryMap => categoryMap.Value)
                 .FirstOrDefault();
-        }
-
-        private static string GetLongestWord(string text)
-        {
-            var words = text.Split(' ');
-            if (!words.Any())
-                return null;
-            var longestWord = words.First();
-            foreach (var word in words)
-                if (word.Length >= longestWord.Length)
-                    longestWord = word;
-            return longestWord;
         }
 
         private static DateTime TryToParseDate(string dateToParse, DateTime dateDefault)

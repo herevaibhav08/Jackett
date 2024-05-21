@@ -291,7 +291,8 @@ namespace Jackett.Updater
                 "Definitions/awesomehd.yml", // migrated to C#
                 "Definitions/b2s-share.yml",
                 "Definitions/baibako.yml", // renamed rudub #5673
-                "Definitions/beyond-hd", // migrated to C#
+                "Definitions/beitai.yml",
+                "Definitions/beyond-hd.yml", // migrated to C# API
                 "Definitions/beyond-hd-oneurl.yml", // #12993
                 "Definitions/biatch.yml",
                 "Definitions/biho.yml",
@@ -428,7 +429,6 @@ namespace Jackett.Updater
                 "Definitions/hdcity.yml", // moved to pixelados
                 "Definitions/hdclub.yml",
                 "Definitions/hddisk.yml",
-                "Definitions/hddolby.yml",
                 "Definitions/hdhouse.yml",
                 "Definitions/hdme.yml",
                 "Definitions/hdmonkey.yml",
@@ -624,6 +624,7 @@ namespace Jackett.Updater
                 "Definitions/the-devils-lounge.yml",
                 "Definitions/thedarkcommunity-api.yml",
                 "Definitions/thehorrorcharnel.yml",
+                "Definitions/theleachzone.yml", // switch to *-API #11185
                 "Definitions/the-madhouse.yml",
                 "Definitions/themoviecave.yml",
                 "Definitions/therebels-api.yml",
