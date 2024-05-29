@@ -1,25 +1,30 @@
 ---
-id: crt2fa
-name: CRT2FA
-description: "Cathode-Ray.Tube (CRT) is a Private Torrent Tracker for CLASSIC MOVIES / TV. This indexer uses cookie login for 2FA."
-language: en-GB
+id: happyfappy2fa
+name: HappyFappy2FA
+description: "HappyFappy is a Private Torrent Tracker for 3X. This indexer uses cookie login for 2FA."
+language: en-US
 type: private
 encoding: UTF-8
 links:
-  - https://www.cathode-ray.tube/
+  - https://www.happyfappy.org/
 
 caps:
   categorymappings:
-    - {id: 13, cat: PC/Games, desc: "Games"}
-    - {id: 4, cat: Other, desc: "Misc"}
-    - {id: 1, cat: Movies, desc: "Movies"}
-    - {id: 2, cat: TV, desc: "TV"}
-    - {id: 3, cat: Other, desc: "WOC"}
+    - {id: 11, cat: XXX, desc: "Asian"}
+    - {id: 6, cat: XXX, desc: "Fansite"}
+    - {id: 13, cat: XXX, desc: "Games"}
+    - {id: 3, cat: XXX, desc: "Gay"}
+    - {id: 4, cat: XXX, desc: "Interracial"}
+    - {id: 5, cat: XXX, desc: "Lesbian"}
+    - {id: 9, cat: XXX, desc: "Packs"}
+    - {id: 10, cat: XXX, desc: "Pics"}
+    - {id: 1, cat: XXX, desc: "Pron"}
+    - {id: 8, cat: XXX, desc: "Retro"}
+    - {id: 12, cat: XXX, desc: "Transsexual"}
+    - {id: 7, cat: XXX, desc: "VR"}
 
   modes:
     search: [q]
-    tv-search: [q, season, ep, imdbid, genre]
-    movie-search: [q, imdbid, genre]
 
 settings:
   - name: cookie
@@ -53,7 +58,7 @@ settings:
   - name: info_activity
     type: info
     label: Account Inactivity
-    default: "New members must generate some torrent activity (upload, download, or cross-seed) in their account within the first 30 days of joining, otherwise their account will be automatically disabled."
+    default: "To keep your account active, sign in and browse the site at least once every 120 days. Seeding torrents does not count as account activity, so in order to remain active you need to sign in and browse the site. Pornstar Trainee (and above) have a longer inactivity timer, but logging in regularly is recommended to learn about special events and new features."
 
 login:
   method: cookie
@@ -68,55 +73,30 @@ search:
     - path: torrents.php
   inputs:
     $raw: "{{ range .Categories }}filter_cat[{{.}}]=1&{{end}}"
-    searchtext: "{{ if .Query.IMDBID }}{{ .Query.IMDBID }}{{ else }}{{ .Keywords }}{{ end }}"
+    title: "{{ .Keywords }}"
     order_by: "{{ .Config.sort }}"
     order_way: "{{ .Config.type }}"
     action: advanced
     filter_freeleech: "{{ if .Config.freeleech }}1{{ else }}{{ end }}"
-    taglist: "{{ .Query.Genre }}"
-
-  keywordsfilters:
-    - name: re_replace
-      args: ["(?i)\\bS0*(\\d+)\\b", "$1"]
-    - name: re_replace
-      args: ["(?i)\\bS0*(\\d+)E0*(\\d+)\\b", "$1"]
 
   rows:
     selector: table#torrent_table > tbody > tr[class^="torrent row"]:has(a[href*="action=download"])
 
   fields:
     category:
-      selector: a[href^="/torrents.php?filter_cat"]
+      selector: a[href^="/torrents.php?filter_cat["]
       attribute: href
       filters:
         - name: regexp
           args: \[(\d+)\]
     title:
       selector: a[href^="/torrents.php?id="]
-      filters:
-        - name: re_replace # Seasons X-Y --> S0X-S0Y
-          args: ["(?i)\\bSeasons?\\s*(\\d)\\s*-\\s*(\\d)\\b", "S0$1-S0$2"]
-        - name: re_replace # Seasons X-YY --> S0X-SYY
-          args: ["(?i)\\bSeasons?\\s*(\\d)\\s*-\\s*(\\d+)\\b", "S0$1-S$2"]
-        - name: re_replace # Seasons XX-YY --> SXX-SYY
-          args: ["(?i)\\bSeasons?\\s*(\\d+)\\s*-\\s*(\\d+)\\b", "S$1-S$2"]
-        - name: re_replace # Season X --> S0X
-          args: ["(?i)\\bSeasons?\\s*(\\d)\\b", "S0$1"]
-        - name: re_replace # Season XX --> SXX
-          args: ["(?i)\\bSeasons?\\s*(\\d+)\\b", "S$1"]
-        - name: re_replace
-          args: ["(?i)\\bComplete\\s+Series\\b", ""]
     details:
       selector: a[href^="/torrents.php?id="]
       attribute: href
     download:
       selector: a[href^="torrents.php?action=download&id="]
       attribute: href
-    genre:
-      selector: div.tags
-      filters:
-        - name: validate
-          args: "Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Kids, Music, Mystery, News, Reality, Romance, SciFi, Soap, Talk, Thriller, War, Western"
     description_tags:
       selector: div.tags
     description:
@@ -131,7 +111,7 @@ search:
         - name: re_replace
           args: ["\\\\(.)", "$1"]
         - name: replace
-          args: ["/static/styles/modern/crt.png", ""]
+          args: ["/static/common/noartwork/noimage.png", ""]
     files:
       selector: td:nth-child(3)
     date:
@@ -160,5 +140,8 @@ search:
         "img[alt=\"DoubleSeed\"]": 2
         "*": 1
     minimumratio:
-      text: 1.0
+      text: 0.5
+    minimumseedtime:
+      # 3 days (as seconds = 3 x 24 x 60 x 60)
+      text: 259200
 # Luminance

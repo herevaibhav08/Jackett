@@ -50,7 +50,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * cpasbien
  * cpasbienClone
  * CrackingPatching
- * Demonoid
  * DivxTotal
  * dmhy
  * DonTorrent
@@ -332,7 +331,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * ExoticaZ (YourExotic)
  * ExtremeBits
  * F1Carreras
- * Falkon Vision Team
  * FANO.IN [![(invite needed)][inviteneeded]](#)
  * Fantastiko [![(invite needed)][inviteneeded]](#)
  * Fappaizuri
@@ -447,6 +445,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * MegamixTracker
  * MeseVilág (Fairytale World)
  * MetalGuru [![(invite needed)][inviteneeded]](#)
+ * METALWRKS
  * Milkie
  * MMA-Torrents [![(invite needed)][inviteneeded]](#)
  * MNV (Max-New-Vision)
@@ -688,7 +687,7 @@ Supported filters
 Filter | Condition
 -|-
 `type:<type>` | where the indexer type is equal to `<type>`
-`tag:<tag>` | where the indexer tags contains `<tag>`
+`tag:<tag>` | where the indexer tags contain `<tag>`
 `lang:<tag>` | where the indexer language start with `<lang>`
 `test:{passed\|failed}` | where the last indexer test performed `passed` or `failed`
 `status:{healthy\|failing\|unknown}` | where the indexer state is `healthy` (successfully operates in the last minutes), `failing` (generates errors in the recent call) or `unknown` (unused for a while)
@@ -711,7 +710,7 @@ The "filter" indexer at `/api/v2.0/indexers/!status:failing,test:passed` will qu
 A special "all" indexer is available at `/api/v2.0/indexers/all/results/torznab`.
 It will query all configured indexers and return the combined results.
 
-If your client supports multiple feeds it's recommended to add each indexer directly instead of using the all indexer.
+If your client supports multiple feeds it's recommended to add each indexer directly instead of using the "all" indexer.
 Using the "all" indexer has no advantages (besides reduced management overhead), the only disadvantages:
 * you lose control over indexer specific settings (categories, search modes, etc.)
 * mixing search modes (IMDB, query, etc.) might cause low-quality results
@@ -796,7 +795,7 @@ On a CentOS/RedHat 7 system: [jewflix.jackett](https://galaxy.ansible.com/jewfli
 On an Ubuntu 16 system: [chrisjohnson00.jackett](https://galaxy.ansible.com/chrisjohnson00/jackett)
 
 
-## Unistallation on Linux
+## Uninstallation on Linux
 `wget https://raw.githubusercontent.com/Jackett/Jackett/master/uninstall_service_systemd.sh --quiet -O -|sudo bash`
 
 
@@ -817,7 +816,7 @@ Logs are stored as usual under `~/.config/Jackett/log.txt`.
 Download and extract the latest `Jackett.Binaries.macOS.tar.gz` or `Jackett.Binaries.macOSARM64.tar.gz` release from the [releases](https://github.com/Jackett/Jackett/releases/latest) page and run Jackett with the command `./jackett`.
 
 
-## Unistallation on macOS
+## Uninstallation on macOS
 `curl -sSL https://raw.githubusercontent.com/Jackett/Jackett/master/uninstall_jackett_macos| bash`
 
 
@@ -880,7 +879,7 @@ If you have enabled the Jackett internal cache, but have an indexer for which yo
 ## Configuring FlareSolverr
 Some indexers are protected by Cloudflare or similar services and Jackett is not able to solve the challenges.
 For these cases, [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) has been integrated into Jackett. This service is in charge of solving the challenges and configuring Jackett with the necessary cookies.
-Setting up this service is optional, most indexers don't need it.
+Setting up this service is optional; most indexers don't need it.
 * Install FlareSolverr service (following their instructions)
 * Configure **FlareSolverr API URL** in Jackett. For example: http://172.17.0.2:8191
 * It is recommended to keep the default value in **FlareSolverr Max Timeout (ms)**
