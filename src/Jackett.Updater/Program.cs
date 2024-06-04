@@ -254,6 +254,7 @@ namespace Jackett.Updater
                 "CurlSharp.dll",
                 "CurlSharp.pdb",
                 "Definitions/01torrent.yml",
+                "Definitions/2xfree.yml",
                 "Definitions/24rolika.yml",
                 "Definitions/32pages.yml",
                 "Definitions/3evils.yml",
@@ -315,6 +316,7 @@ namespace Jackett.Updater
                 "Definitions/broadcity.yml",
                 "Definitions/brobits.yml",
                 "Definitions/brsociety.yml", // switch to *-API #8682
+                "Definitions/brsociety-api.yml",
                 "Definitions/bt-scene.yml",
                 "Definitions/bt4g.yml",
                 "Definitions/btbit.yml",
@@ -476,6 +478,7 @@ namespace Jackett.Updater
                 "Definitions/latinop2p.yml",
                 "Definitions/leaguehd.yml", // renamed to lemonhd
                 "Definitions/lechaudron.yml",
+                "Definitions/leech24.yml", // switch to *-API #12553
                 "Definitions/legacyhd.yml", // renamed to realflix
                 "Definitions/legittorrents.yml",
                 "Definitions/lemencili.yml",
