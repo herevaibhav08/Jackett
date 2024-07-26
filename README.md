@@ -31,7 +31,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * ACG.RIP
  * Anidex
  * AniLibria
- * Anime Time
  * Anime Tosho
  * AniRena
  * AniSource
@@ -84,7 +83,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * MixTapeTorrent
  * MoviesDVDR
  * MyPornClub
- * NextJAV
  * Newstudio
  * Nipponsei
  * NNTT
@@ -92,6 +90,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Nyaa.si
  * OneJAV
  * OxTorrent
+ * OxTorrent-vip
  * ParnuXi
  * PC-torrent
  * PornoTorrent
@@ -114,16 +113,15 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TheRARBG
  * Tokyo Tosho
  * Torlock
- * Torrent[CORE]
+ * Torrent Downloads
  * Torrent Oyun indir
+ * Torrent[CORE]
  * torrent.by
  * torrent-pirat
  * Torrent9
- * Torrent9 clone
- * Torrent911
+ * Torrent9-tel
  * TorrentFunk
- * TorrentDownloads
- * TorrentGalaxy (TGx)
+ * TorrentDownload
  * TorrentKitty
  * TorrentProject2
  * TorrentQQ (토렌트큐큐)
@@ -171,6 +169,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * File-Tracker
  * Gay-Torrents.net
  * Genesis-Movement
+ * GOOD tracker
  * HD-CzTorrent
  * HDGalaKtik
  * HellTorrents
@@ -207,13 +206,13 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * SkTorrent
  * SkTorrent-org
  * themixingbowl (TMB)
- * Toloka.to
+ * Toloka
  * TorrentMasters
  * Torrents-Local
- * TorrentDownload
  * TribalMixes
  * Union Fansub
  * UniOtaku
+ * ViDEOTEKA
  * xTorrenty
  * ZOMB
  * Ztracker
@@ -272,6 +271,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * BiTTuRK
  * BJ-Share (BJ) [![(invite needed)][inviteneeded]](#)
  * BlueBird
+ * BlurayTracker
  * Blutopia (BLU)
  * Borgzelle [![(invite needed)][inviteneeded]](#)
  * Boxing Torrents
@@ -288,7 +288,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Carpathians
  * CarPT
  * Cathode-Ray.Tube (CRT)
- * Central Torrent
+ * CD File
  * CeskeForum
  * CGPeers [![(invite needed)][inviteneeded]](#)
  * CHDBits [![(invite needed)][inviteneeded]](#)
@@ -304,12 +304,14 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * CrabPT (蟹黄堡)
  * CrazySpirits
  * CrnaBerza
+ * cyanbug (大青虫)
  * Dajiao (打胶) [![(invite needed)][inviteneeded]](#)
  * DANISH BYTES
  * Darius Tracker
  * Dark-Shadow
  * Das Unerwartete (D-U)
  * DataScene (DS)
+ * DenOfSimps (DoS)
  * DesiTorrents
  * Diablo Torrent
  * DICMusic [![(invite needed)][inviteneeded]](#)
@@ -334,7 +336,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Fappaizuri
  * FearNoPeer
  * Femdomcult
- * File-Shack
  * FileList (FL)
  * FinElite (FE)
  * FinVip
@@ -343,9 +344,8 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * FSM
  * FunFile (FF)
  * FunkyTorrents (FT)
- * FutureTorrent [![(invite needed)][inviteneeded]](#)
+ * FutureTorrent
  * Fuzer (FZ)
- * Gamera (駕瞑羅)
  * Gay-Torrents.org
  * GAYtorrent.ru
  * GazelleGames (GGn)
@@ -375,9 +375,8 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * HDBits [![(invite needed)][inviteneeded]](#)
  * HDCiTY (HDC) [![(invite needed)][inviteneeded]](#)
  * HDFans
- * HDFun (HDZone)
  * HDHome (HDBigger) [![(invite needed)][inviteneeded]](#)
- * HDMaYi (小蚂蚁PT站)
+ * HDKylin (麒麟)
  * HDPT (明教) [![(invite needed)][inviteneeded]](#)
  * HDRoute [![(invite needed)][inviteneeded]](#)
  * HDSky [![(invite needed)][inviteneeded]](#)
@@ -391,6 +390,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Hebits
  * HellasHut
  * HHanClub
+ * HomePornTorrents (HPT)
  * House of Devil
  * HQMusic
  * HUDBT (蝴蝶) [![(invite needed)][inviteneeded]](#)
@@ -426,25 +426,23 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Le-Cinephile
  * LearnBits
  * LearnFlakes
- * leech24
+ * Leech24
  * Les-Cinephiles
  * Lesbians4u
  * Libble
  * LibraNet (LN)
- * LilleSky.org
  * LinkoManija
  * Locadora
  * LosslessClub [![(invite needed)][inviteneeded]](#)
  * LST
  * M-Team TP (MTTP) [![(invite needed)][inviteneeded]](#)
- * MaDs Revolution
  * Majomparádé (TurkDepo)
  * Making Off
  * Mansão dos Animes (MDAN)
+ * Malayabits
  * MegamixTracker
  * MeseVilág (Fairytale World)
  * MetalGuru [![(invite needed)][inviteneeded]](#)
- * METALWRKS
  * Milkie
  * MMA-Torrents [![(invite needed)][inviteneeded]](#)
  * MNV (Max-New-Vision)
@@ -452,7 +450,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * MonikaDesign (MDU)
  * MoreThanTV (MTV) [![(invite needed)][inviteneeded]](#)
  * MouseBits
- * Movie-Torrentz
  * MyAnonamouse (MAM)
  * MySpleen [![(invite needed)][inviteneeded]](#)
  * NCore [![(invite needed)][inviteneeded]](#)
@@ -495,7 +492,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * PTerClub (PT之友俱乐部)
  * PTFiles (PTF)
  * PThome [![(invite needed)][inviteneeded]](#)
- * PTLSP
  * PTSBAO (烧包) [![(invite needed)][inviteneeded]](#)
  * PTtime
  * PTVicomo
@@ -516,7 +512,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * Resurrect The Net [![(invite needed)][inviteneeded]](#)
  * RetroFlix
  * RevolutionTT [![(invite needed)][inviteneeded]](#)
- * RocketHD
  * Romanian Metal Torrents (RMT)
  * RoTorrent
  * Rousi
@@ -528,13 +523,11 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * SceneTime
  * Secret Cinema
  * SeedFile
- * Shadowflow (影) [![(invite needed)][inviteneeded]](#)
+ * SFP (Share Friends Projekt)
  * Shareisland
- * SharkPT
  * Shazbat
  * SiamBIT
  * SkipTheCommercials
- * SkipTheTrailers
  * slosoul
  * SnowPT (SSPT)
  * SoulVoice (聆音Club)
@@ -571,7 +564,6 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TheEmpire (TE)
  * TheLeachZone (TLZ)
  * TheScenePlace (TSP)
- * Thor's Land
  * TJUPT (北洋园PT)
  * TLFBits [![(invite needed)][inviteneeded]](#)
  * TmGHuB [![(invite needed)][inviteneeded]](#)
@@ -599,6 +591,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * TorrentLeech (TL)
  * TorrentLeech.pl
  * TorrentSeeds (TS)
+ * ToSky
  * ToTheGlory (TTG) [![(invite needed)][inviteneeded]](#)
  * TrackerMK
  * TranceTraffic
@@ -616,6 +609,7 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * UnlimitZ
  * upload.cx
  * UTOPIA
+ * ViSiON HD
  * WDT (Wrestling Desires Torrents / Ultimate Wrestling Torrents)
  * White Angel
  * WinterSakura
@@ -629,8 +623,8 @@ A third-party Golang SDK for Jackett is available from [webtor-io/go-jackett](ht
  * XtremeBytes
  * XWT-Classics
  * XWTorrents (XWT)
- * YDYPT (伊甸园PT)
  * YggTorrent (YGG)
+ * YOiNKED
  * Zamunda.net
  * Zelka.org
  * ZmPT (织梦)
@@ -743,7 +737,7 @@ On most operating systems all the required dependencies will already be present.
 ### Install as service
 A) Command to download and install the latest package and run the Jackett service:
 
-`cd /opt && f=Jackett.Binaries.LinuxAMDx64.tar.gz && sudo wget -Nc https://github.com/Jackett/Jackett/releases/latest/download/"$f" && sudo tar -xzf "$f" && sudo rm -f "$f" && cd Jackett* && sudo ./install_service_systemd.sh && systemctl status jackett.service && cd - && echo -e "\nVisit http://127.0.0.1:9117"`
+`cd /opt && f=Jackett.Binaries.LinuxAMDx64.tar.gz && sudo wget -Nc https://github.com/Jackett/Jackett/releases/latest/download/"$f" && sudo tar -xzf "$f" && sudo rm -f "$f" && cd Jackett* && sudo chown $(whoami):$(id -g) -R "/opt/Jackett" && sudo ./install_service_systemd.sh && systemctl status jackett.service && cd - && echo -e "\nVisit http://127.0.0.1:9117"`
 
 B) Or manually:
 
@@ -955,7 +949,7 @@ dotnet publish Jackett.Server -f net8.0 --self-contained -r osx-x64 -c Debug # t
 
 
 ```bash
-sudo apt install nuget msbuild dotnet-sdk-6.0 # install build tools (Debian/ubuntu)
+sudo apt install nuget msbuild dotnet-sdk-8.0 # install build tools (Debian/ubuntu)
 git clone https://github.com/Jackett/Jackett.git
 cd Jackett/src
 
