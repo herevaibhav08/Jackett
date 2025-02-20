@@ -58,6 +58,7 @@ settings:
     default: For best results, change the <b>Torrents per page:</b> setting to <b>100</b> on your account profile.
 
 login:
+  # switched from the form method to the cookie method due to #8911
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"
@@ -163,4 +164,4 @@ search:
     description:
       selector: td:nth-child(2)
       remove: a, b, font, img, span
-# NexusPHP Standard v1.5 Beta 4 2010-09-19 (customised)
+# NexusPHP Standard v1.5 Beta 4 (customised)

@@ -6,9 +6,10 @@ language: he-IL
 type: private
 encoding: windows-1255
 links:
-  - https://www.fuzer.me/
+  - https://www.fuzer.xyz/
 legacylinks:
   - https://fuzer.me/
+  - https://www.fuzer.me/
 
 caps:
   categorymappings:
@@ -94,6 +95,7 @@ settings:
       asc: asc
 
 login:
+  # using cookie method because login page has embedded Google reCAPTCHA
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"

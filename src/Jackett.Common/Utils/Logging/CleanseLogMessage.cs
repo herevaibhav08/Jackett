@@ -10,7 +10,7 @@ namespace Jackett.Common.Utils.Logging
         private static readonly Regex[] _CleansingRules =
         {
             // Url
-            new Regex(@"(?<=[?&: ;])(apikey|api_key|(?:(?:access|api)[-_]?)?token|pass(?:key|wd)?|auth|authkey|user|u?id|api|[a-z_]*apikey|account|pwd)=(?<secret>[^&=""]+?)(?=[ ""&=]|$)", RegexOptions.Compiled | RegexOptions.IgnoreCase),
+            new Regex(@"(?<=[?&: ;])(apikey|api_key|(?:(?:access|api)[-_]?)?token|pass(?:key|wd)?|auth|authkey|rsskey|user|u?id|api|[a-z_]*apikey|account|pwd)=(?<secret>[^&=""]+?)(?=[ ""&=]|$)", RegexOptions.Compiled | RegexOptions.IgnoreCase),
             new Regex(@"(?<=[?& ;])[^=]*?(_?(?<!use|get_)token|username|passwo?rd)=(?<secret>[^&=]+?)(?= |&|$|;)", RegexOptions.Compiled | RegexOptions.IgnoreCase),
             new Regex(@"(?<=[?& ;])[^=]*?(pid)=(?<secret>[a-z0-9]{32}[^&=]+?)(?= |&|$|;)", RegexOptions.Compiled | RegexOptions.IgnoreCase),
             new Regex(@"rss(24h)?\.torrentleech\.org/(?!rss)(?<secret>[0-9a-z]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase),
@@ -21,6 +21,7 @@ namespace Jackett.Common.Utils.Logging
             new Regex(@"(?<=authkey = "")(?<secret>[^&=]+?)(?="")", RegexOptions.Compiled | RegexOptions.IgnoreCase),
             new Regex(@"(?<=beyond-hd\.[a-z]+/api/torrents/)(?<secret>[^&=][a-z0-9]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase),
             new Regex(@"(?<=beyond-hd\.[a-z]+/torrent/download/[\w\d-]+[.]\d+[.])(?<secret>[a-z0-9]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase),
+            new Regex(@"(?:sharewood)\.[a-z]{2,3}/api/(?<secret>[a-z0-9]{16,})/", RegexOptions.Compiled | RegexOptions.IgnoreCase),
 
             // UNIT3D
             new Regex(@"(?<=[a-z0-9-]+\.[a-z]+/torrent/download/\d+\.)(?<secret>[^&=][a-z0-9]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase),

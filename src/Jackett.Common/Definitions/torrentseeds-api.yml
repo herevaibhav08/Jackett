@@ -5,7 +5,7 @@ description: "TorrentSeeds is a Private Torrent Tracker for MOVIES / TV / MUSIC 
 language: en-US
 type: private
 encoding: UTF-8
-requestDelay: 5
+requestDelay: 6
 links:
   - https://torrentseeds.org/
 
@@ -68,6 +68,7 @@ login:
     - selector: a[href*="/login"]
       message:
         text: "The API key was not accepted by {{ .Config.sitelink }}."
+    - selector: :root:contains("Account is Banned")
 
 search:
   paths:

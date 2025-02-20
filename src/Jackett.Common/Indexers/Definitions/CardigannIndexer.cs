@@ -178,7 +178,7 @@ namespace Jackett.Common.Indexers.Definitions
                             item = new DisplayInfoConfigurationItem($"About {Definition.Name} Categories", $"{Definition.Name} does not return categories in its search results.</br>To add to your Apps' Torznab indexer, replace all categories with 8000(Other).");
                             break;
                         case "info_cookie":
-                            item = new DisplayInfoConfigurationItem("How to get the Cookie", "<ol><li>Login to this tracker with your browser</li><li>If present in the login page, ensure you have the <b>Remember me</b> ticked and the <b>Log Me Out if IP Changes</b> unticked when you login</li><li>Open the <b>DevTools</b> panel by pressing <b>F12</b></li><li>Select the <b>Network</b> tab</li><li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)</li><li>Refresh the page by pressing <b>F5</b></li><li>Click on the first row entry</li><li>Select the <b>Headers</b> tab on the Right panel</li><li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</li></ol>");
+                            item = new DisplayInfoConfigurationItem("How to get the Cookie", "<ol><li>Login to this tracker with your browser</li><li>If present in the login page, ensure you have the <b>Remember me</b> ticked and the <b>Log Me Out if IP Changes</b> unticked when you login</li><li>Navigate to the web site's torrent search page to view the list of available torrents for download</li><li>Open the <b>DevTools</b> panel by pressing <b>F12</b></li><li>Select the <b>Network</b> tab</li><li>Click on the <b>Doc</b> button (Chrome Browser) or <b>HTML</b> button (FireFox)</li><li>Refresh the page by pressing <b>F5</b></li><li>Click on the first row entry</li><li>Select the <b>Headers</b> tab on the Right panel</li><li>Find <b>'cookie:'</b> in the <b>Request Headers</b> section</li><li><b>Select</b> and <b>Copy</b> the whole cookie string <i>(everything after 'cookie: ')</i> and <b>Paste</b> here.</li></ol>");
                             break;
                         case "info_flaresolverr":
                             item = new DisplayInfoConfigurationItem("FlareSolverr", "This site may use Cloudflare DDoS Protection, therefore Jackett requires <a href=\"https://github.com/Jackett/Jackett#configuring-flaresolverr\" target=\"_blank\">FlareSolverr</a> to access it.");
@@ -254,7 +254,7 @@ namespace Jackett.Common.Indexers.Definitions
                 [".Config.sitelink"] = SiteLink,
                 [".True"] = "True",
                 [".False"] = null,
-                [".Today.Year"] = DateTime.Today.Year.ToString()
+                [".Today.Year"] = DateTime.Today.Month > 1 ? DateTime.Today.Year.ToString() : (DateTime.Today.Year - 1).ToString()
             };
 
             foreach (var setting in Definition.Settings)
@@ -566,7 +566,8 @@ namespace Jackett.Common.Indexers.Definitions
             if (Login == null)
                 return true;
 
-            var headers = ParseCustomHeaders(Definition.Login?.Headers ?? Definition.Search?.Headers, GetBaseTemplateVariables());
+            var variables = GetBaseTemplateVariables();
+            var headers = ParseCustomHeaders(Definition.Login?.Headers ?? Definition.Search?.Headers, variables);
 
             if (Login.Method == "post")
             {
@@ -581,20 +582,20 @@ namespace Jackett.Common.Indexers.Definitions
                     }
                 }
 
-                var LoginUrl = resolvePath(Login.Path).ToString();
+                var loginUrl = resolvePath(applyGoTemplateText(Login.Path, variables)).ToString();
 
                 configData.CookieHeader.Value = null;
                 if (Login.Cookies != null)
                     configData.CookieHeader.Value = string.Join("; ", Login.Cookies);
 
-                var loginResult = await RequestLoginAndFollowRedirect(LoginUrl, pairs, null, true, null, SiteLink, true, headers);
+                var loginResult = await RequestLoginAndFollowRedirect(loginUrl, pairs, null, true, null, SiteLink, true, headers);
                 configData.CookieHeader.Value = loginResult.Cookies;
 
                 checkForError(loginResult, Definition.Login.Error);
             }
             else if (Login.Method == "form")
             {
-                var LoginUrl = resolvePath(Login.Path).ToString();
+                var loginUrl = resolvePath(applyGoTemplateText(Login.Path, variables)).ToString();
 
                 var queryCollection = new NameValueCollection();
                 var pairs = new Dictionary<string, string>();
@@ -614,13 +615,13 @@ namespace Jackett.Common.Indexers.Definitions
                 var form = landingResultDocument.QuerySelector(FormSelector);
                 if (form == null)
                 {
-                    throw new ExceptionWithConfigData(string.Format("Login failed: No form found on {0} using form selector {1}", LoginUrl, FormSelector), configData);
+                    throw new ExceptionWithConfigData(string.Format("Login failed: No form found on {0} using form selector {1}", loginUrl, FormSelector), configData);
                 }
 
                 var inputs = form.QuerySelectorAll("input");
                 if (inputs == null)
                 {
-                    throw new ExceptionWithConfigData(string.Format("Login failed: No inputs found on {0} using form selector {1}", LoginUrl, FormSelector), configData);
+                    throw new ExceptionWithConfigData(string.Format("Login failed: No inputs found on {0} using form selector {1}", loginUrl, FormSelector), configData);
                 }
 
                 var submitUrlstr = form.GetAttribute("action");
@@ -718,14 +719,14 @@ namespace Jackett.Common.Indexers.Definitions
                 }
                 if (queryCollection.Count > 0)
                     submitUrlstr += "?" + queryCollection.GetQueryString();
-                var submitUrl = resolvePath(submitUrlstr, new Uri(LoginUrl));
+                var submitUrl = resolvePath(submitUrlstr, new Uri(loginUrl));
 
                 // automatically solve simpleCaptchas, if used
                 var simpleCaptchaPresent = landingResultDocument.QuerySelector("script[src*=\"simpleCaptcha\"]");
                 if (simpleCaptchaPresent != null)
                 {
                     var captchaUrl = resolvePath("simpleCaptcha.php?numImages=1");
-                    var simpleCaptchaResult = await RequestWithCookiesAsync(captchaUrl.ToString(), referer: LoginUrl, headers: headers);
+                    var simpleCaptchaResult = await RequestWithCookiesAsync(captchaUrl.ToString(), referer: loginUrl, headers: headers);
                     var simpleCaptchaJSON = JObject.Parse(simpleCaptchaResult.ContentString);
                     var captchaSelection = simpleCaptchaJSON["images"][0]["hash"].ToString();
                     pairs["captchaSelection"] = captchaSelection;
@@ -798,7 +799,7 @@ namespace Jackett.Common.Indexers.Definitions
                         body);
                 }
                 else
-                    loginResult = await RequestLoginAndFollowRedirect(submitUrl.ToString(), pairs, configData.CookieHeader.Value, true, null, LoginUrl, true, headers);
+                    loginResult = await RequestLoginAndFollowRedirect(submitUrl.ToString(), pairs, configData.CookieHeader.Value, true, null, loginUrl, true, headers);
 
                 configData.CookieHeader.Value = loginResult.Cookies;
 
@@ -821,7 +822,7 @@ namespace Jackett.Common.Indexers.Definitions
                     }
                 }
 
-                var loginUrl = resolvePath(Login.Path + "?" + queryCollection.GetQueryString()).ToString();
+                var loginUrl = resolvePath(applyGoTemplateText(Login.Path, variables) + "?" + queryCollection.GetQueryString()).ToString();
                 configData.CookieHeader.Value = null;
                 var loginResult = await RequestWithCookiesAsync(loginUrl, referer: SiteLink, headers: headers);
                 configData.CookieHeader.Value = loginResult.Cookies;
@@ -831,7 +832,7 @@ namespace Jackett.Common.Indexers.Definitions
             else if (Login.Method == "oneurl")
             {
                 var OneUrl = applyGoTemplateText(Definition.Login.Inputs["oneurl"]);
-                var LoginUrl = resolvePath(Login.Path + OneUrl).ToString();
+                var LoginUrl = resolvePath(applyGoTemplateText(Login.Path, variables) + OneUrl).ToString();
                 configData.CookieHeader.Value = null;
                 var loginResult = await RequestWithCookiesAsync(LoginUrl, referer: SiteLink, headers: headers);
                 configData.CookieHeader.Value = loginResult.Cookies;
@@ -866,17 +867,21 @@ namespace Jackett.Common.Indexers.Definitions
             var Login = Definition.Login;
 
             if (Login == null || Login.Test == null)
+            {
                 return false;
+            }
 
             // test if login was successful
-            var LoginTestUrl = resolvePath(Login.Test.Path).ToString();
+            var loginTestUrl = resolvePath(Login.Test.Path).ToString();
             var headers = ParseCustomHeaders(Definition.Login?.Headers ?? Definition.Search?.Headers, GetBaseTemplateVariables());
-            var testResult = await RequestWithCookiesAsync(LoginTestUrl, headers: headers);
+            var testResult = await RequestWithCookiesAsync(loginTestUrl, headers: headers);
 
             // Follow the redirect on login if the domain doesn't change
             if (testResult.IsRedirect && GetRedirectDomainHint(testResult) == null)
             {
-                testResult = await FollowIfRedirect(testResult, LoginTestUrl, overrideCookies: testResult.Cookies, accumulateCookies: true, maxRedirects: 1);
+                logger.Warn("Redirected to {0} from test login request", testResult.RedirectingTo);
+
+                testResult = await FollowIfRedirect(testResult, loginTestUrl, overrideCookies: testResult.Cookies, accumulateCookies: true, maxRedirects: 1);
             }
 
             if (testResult.IsRedirect)
@@ -887,6 +892,7 @@ namespace Jackett.Common.Indexers.Definitions
                 if (domainHint != null)
                 {
                     errormessage += " Try changing the indexer URL to " + domainHint + ".";
+
                     if (Definition.Followredirect)
                     {
                         configData.SiteLink.Value = domainHint;
@@ -895,6 +901,7 @@ namespace Jackett.Common.Indexers.Definitions
                         errormessage += " Updated site link, please try again.";
                     }
                 }
+
                 throw new ExceptionWithConfigData(errormessage, configData);
             }
 
@@ -902,12 +909,15 @@ namespace Jackett.Common.Indexers.Definitions
             {
                 var testResultParser = new HtmlParser();
                 using var testResultDocument = testResultParser.ParseDocument(testResult.ContentString);
+
                 var selection = testResultDocument.QuerySelectorAll(Login.Test.Selector);
+
                 if (selection.Length == 0)
                 {
                     throw new ExceptionWithConfigData(string.Format("Login failed: Selector \"{0}\" didn't match", Login.Test.Selector), configData);
                 }
             }
+
             return true;
         }
 
@@ -980,19 +990,21 @@ namespace Jackett.Common.Indexers.Definitions
             if (Login == null || Login.Method != "form")
                 return configData;
 
-            var LoginUrl = resolvePath(Login.Path);
-            var headers = ParseCustomHeaders(Definition.Login?.Headers ?? Definition.Search?.Headers, GetBaseTemplateVariables());
+            var variables = GetBaseTemplateVariables();
+            var headers = ParseCustomHeaders(Definition.Login?.Headers ?? Definition.Search?.Headers, variables);
+
+            var loginUrl = resolvePath(applyGoTemplateText(Login.Path, variables));
 
             configData.CookieHeader.Value = null;
             if (Login.Cookies != null)
                 configData.CookieHeader.Value = string.Join("; ", Login.Cookies);
 
-            landingResult = await RequestWithCookiesAsync(LoginUrl.AbsoluteUri, cookies, referer: SiteLink, headers: headers);
+            landingResult = await RequestWithCookiesAsync(loginUrl.AbsoluteUri, cookies, referer: SiteLink, headers: headers);
 
             // Some sites have a temporary redirect before the login page, we need to process it.
             if (Definition.Followredirect)
             {
-                landingResult = await FollowIfRedirect(landingResult, LoginUrl.AbsoluteUri, overrideCookies: landingResult.Cookies, accumulateCookies: true);
+                landingResult = await FollowIfRedirect(landingResult, loginUrl.AbsoluteUri, overrideCookies: landingResult.Cookies, accumulateCookies: true);
             }
 
             var hasCaptcha = false;
@@ -1009,9 +1021,9 @@ namespace Jackett.Common.Indexers.Definitions
                     {
                         hasCaptcha = true;
 
-                        var CaptchaUrl = resolvePath(captchaElement.GetAttribute("src"), LoginUrl);
+                        var CaptchaUrl = resolvePath(captchaElement.GetAttribute("src"), loginUrl);
                         var captchaImageData = await RequestWithCookiesAsync(
-                            CaptchaUrl.ToString(), landingResult.Cookies, referer: LoginUrl.AbsoluteUri, headers: headers);
+                            CaptchaUrl.ToString(), landingResult.Cookies, referer: loginUrl.AbsoluteUri, headers: headers);
                         var CaptchaImage = new DisplayImageConfigurationItem("Captcha Image");
                         var CaptchaText = new StringConfigurationItem("Captcha Text");
 
@@ -1053,6 +1065,7 @@ namespace Jackett.Common.Indexers.Definitions
             {
                 configData.LastError.Value = "Got captcha during automatic login, please reconfigure manually";
                 logger.Error(string.Format("CardigannIndexer ({0}): Found captcha during automatic login, aborting", Id));
+                landingResultDocument = null;
                 return null;
             }
 

@@ -16,6 +16,9 @@ links:
   - https://kickasst.net/
   - https://kickasstorrents.id/
   - https://thekat.cc/
+  - https://kickass-kat.com/
+  - https://kickass.sh/
+
 legacylinks:
   - https://kickass.gg/
   - https://katcr.io/
@@ -25,15 +28,7 @@ legacylinks:
   - https://kat.li/
   - https://katcr.to/ # kickasstorrents-to proxy
   - https://kickasstorrent.cr/ # kickasstorrents-to proxy
-  - https://kickass.unblockit.pro/
-  - https://kickass.unblockit.one/
-  - https://kickass.unblockit.me/
-  - https://kickass.unblockit.pw/
-  - https://kickass.unblockit.id/
-  - https://kickass.unblockit.win/
-  - https://kickass.unblockit.top/ # currently redirects to https://kat.unblockit.lat/ (newkatcr.co proxy)
   - https://kickasstorrents.unblockninja.com/ # currently kickasstorrents-to proxy
-  - https://kickass-kat.com/
 
 caps:
   categorymappings:

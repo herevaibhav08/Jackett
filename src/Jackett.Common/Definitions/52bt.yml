@@ -5,6 +5,7 @@ description: "52BT is a CHINESE Public tracker for TV / MOVIES / MUSIC / GENERAL
 language: zh-CN
 type: public
 encoding: UTF-8
+requestDelay: 2
 links:
   # Send any content to 52btbtbt@gmail.com to get the latest address. or visit https://521.52btbt.cyou/
   - https://www.529053.xyz/
@@ -61,6 +62,7 @@ settings:
 search:
   paths:
     - path: "search-{{ if .Keywords }}{{ .Keywords }}{{ else }}{{ .Today.Year }}{{ end }}-{{ .Config.cat-id }}-{{ .Config.sort }}-1.html"
+    - path: "search-{{ if .Keywords }}{{ .Keywords }}{{ else }}{{ .Today.Year }}{{ end }}-{{ .Config.cat-id }}-{{ .Config.sort }}-2.html"
   error:
     - selector: :root:contains("Internal Server Error")
 
@@ -78,20 +80,21 @@ search:
     details:
       selector: a[href^="/hash/"]
       attribute: href
-    magnet:
+    infohash:
       selector: a[href^="magnet:?xt="]
       attribute: href
-    date:
-      selector: div.sbar > span:contains("添加时间:")
       filters:
-        - name: replace
-          args: ["添加时间:", ""]
+        - name: regexp
+          args: ([A-F|a-f|0-9]{40})
+    date:
+      selector: div.sbar > span:contains("添加时间:") > b
+      filters:
         - name: append
           args: " +08:00" # CST
         - name: dateparse
           args: "yyyy-MM-dd zzz"
     size:
-      selector: div.sbar > span:contains("大小:")
+      selector: div.sbar > span:contains("大小:") > b
     seeders:
       text: 1
     leechers:

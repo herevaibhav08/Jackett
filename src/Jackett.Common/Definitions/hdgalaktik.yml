@@ -5,6 +5,8 @@ description: "HDGalaKtik is a RUSSIAN Semi-Private tracker for MOVIES / TV / GEN
 language: ru-RU
 type: semi-private
 encoding: UTF-8
+certificates:
+  - 53262db5c4e32667ae158fcc90396d5675d4ec3a   # CN=mail.trackerpmr.com
 links:
   - https://www.trackerpmr.com/
   - https://freetmd.com/
@@ -76,6 +78,7 @@ settings:
     default: For best results, change the <b>Torrents per page:</b> setting to <b>100</b> on your account profile.
 
 login:
+  # using the cookie method because the site expects a single session only, so using browser and Jackett can cause a lockout
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"
@@ -126,11 +129,12 @@ search:
         - name: querystring
           args: cat
     title:
-      selector: a.link-secondary
+      selector: a[href^="details.php?id="]
       attribute: title
       filters:
         - name: regexp
           args: \'>(.+?)</div
+        - name: htmldecode
         # normalize to SXXEYY format
         - name: re_replace
           args: ["(?i)[CС]езоны?[\\s:]*(\\d+(?:-\\d+)?).+?(?:\\s*(?:[CС]ери[ияй]|Эпизод|Выпуски?))[\\s:]*(\\d+(?:-\\d+)?)\\s*из\\s*(\\w?)", "S$1E$2 of $3"]
@@ -189,10 +193,10 @@ search:
         - name: append
           args: "{{ if .Config.addrussiantotitle }} RUS{{ else }}{{ end }}"
     details:
-      selector: a.link-secondary
+      selector: a[href^="details.php?id="]
       attribute: href
     download:
-      selector: a.link-secondary
+      selector: a[href^="details.php?id="]
       attribute: href
       filters:
         - name: replace
@@ -212,23 +216,16 @@ search:
       selector: span[title="Раздают"]
     leechers:
       selector: span[title="Качают"]
-    date_today:
+    date_day:
       # Сегодня в 18:22
-      selector: a[href^="browse.php?date="]:contains("Сегодня")
+      # Вчера в 20:52
+      selector: a[href^="browse.php?date="]:contains("Сегодня"), a[href^="browse.php?date="]:contains("Вчера")
       optional: true
       filters:
         - name: regexp
-          args: "(Сегодня в \\d{2}:\\d{2})"
+          args: "((Вчера в|Сегодня в)( \\d{2}:\\d{2}))"
         - name: replace
           args: ["Сегодня в", "Today"]
-        - name: fuzzytime
-    date_yday:
-      # Вчера в 20:52
-      selector: a[href^="browse.php?date="]:contains("Вчера")
-      optional: true
-      filters:
-        - name: regexp
-          args: "(Вчера в \\d{2}:\\d{2})"
         - name: replace
           args: ["Вчера в", "Yesterday"]
         - name: fuzzytime
@@ -244,7 +241,7 @@ search:
         - name: dateparse
           args: "HH:mm dd/MM zzz"
     date:
-      text: "{{ if or .Result.date_year .Result.date_today .Result.date_yday }}{{ or .Result.date_year .Result.date_today .Result.date_yday }}{{ else }}now{{ end }}"
+      text: "{{ if or .Result.date_year .Result.date_day }}{{ or .Result.date_year .Result.date_day }}{{ else }}now{{ end }}"
     downloadvolumefactor:
       case:
         img[src="/pic/freedownload.gif"]: 0

@@ -10,6 +10,7 @@ links:
   - https://majomparade.eu/
 
 caps:
+  # dont forget to update the path categories in the search block
   categorymappings:
     - {id: 4, cat: Movies/3D, desc: "3D/Magyar", default: true}
     - {id: 5, cat: Movies/3D, desc: "3D/Külföldi", default: true}
@@ -72,6 +73,7 @@ settings:
     default: "Users who have been inactive for more than 25 weeks are automatically deleted."
 
 login:
+  # using cookie method because login page is using some some hidden security check
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"

@@ -28,38 +28,30 @@ namespace Jackett.Common.Indexers.Definitions
         public override string Id => "audiobookbay";
         public override string Name => "AudioBook Bay";
         public override string Description => "AudioBook Bay (ABB) is a public Torrent Tracker for AUDIOBOOKS";
-        public override string SiteLink { get; protected set; } = "https://audiobookbay.is/";
+        public override string SiteLink { get; protected set; } = "https://audiobookbay.lu/";
+        public override string[] AlternativeSiteLinks => new[]
+        {
+            "https://audiobookbay.lu/",
+            "http://audiobookbay.is/",
+        };
         public override string[] LegacySiteLinks => new[]
         {
             "https://audiobookbay.la/",
             "http://audiobookbay.net/",
-            "https://audiobookbay.unblockit.tv/",
             "http://audiobookbay.nl/",
             "http://audiobookbay.ws/",
-            "https://audiobookbay.unblockit.how/",
-            "https://audiobookbay.unblockit.cam/",
-            "https://audiobookbay.unblockit.biz/",
-            "https://audiobookbay.unblockit.day/",
-            "https://audiobookbay.unblockit.llc/",
-            "https://audiobookbay.unblockit.blue/",
-            "https://audiobookbay.unblockit.name/",
             "http://audiobookbay.fi/",
             "http://audiobookbay.se/",
             "http://audiobookbayabb.com/",
-            "https://audiobookbay.unblockit.ist/",
-            "https://audiobookbay.unblockit.bet/",
-            "https://audiobookbay.unblockit.cat/",
-            "https://audiobookbay.unblockit.nz/",
             "https://audiobookbay.fi/",
-            "https://audiobookbay.unblockit.page/",
-            "https://audiobookbay.unblockit.pet/",
-            "https://audiobookbay.unblockit.ink/",
-            "https://audiobookbay.unblockit.bio/", // error 502
             "https://audiobookbay.li/",
-            "https://audiobookbay.se/" // redirects to .is but has invalid CA
+            "https://audiobookbay.se/", // redirects to .is but has invalid CA
+            "https://audiobookbay.is/"
         };
         public override string Language => "en-US";
         public override string Type => "public";
+
+        public override int PageSize => 9;
 
         public override TorznabCapabilities TorznabCaps => SetCapabilities();
 
@@ -71,7 +63,7 @@ namespace Jackett.Common.Indexers.Definitions
                    cacheService: cs,
                    configData: new ConfigurationData())
         {
-            webclient.requestDelay = 5.1;
+            webclient.requestDelay = 6.1;
         }
 
         private TorznabCapabilities SetCapabilities()
@@ -89,6 +81,16 @@ namespace Jackett.Common.Indexers.Definitions
             return caps;
         }
 
+        public override IIndexerRequestGenerator GetRequestGenerator()
+        {
+            return new AudioBookBayRequestGenerator(SiteLink);
+        }
+
+        public override IParseIndexerResponse GetParser()
+        {
+            return new AudioBookBayParser(SiteLink);
+        }
+
         public override async Task<IndexerConfigurationStatus> ApplyConfiguration(JToken configJson)
         {
             LoadValuesFromJson(configJson);
@@ -98,50 +100,6 @@ namespace Jackett.Common.Indexers.Definitions
             await ConfigureIfOK(string.Empty, releases.Any(), () => throw new Exception("Could not find releases from this URL"));
 
             return IndexerConfigurationStatus.Completed;
-        }
-
-        protected override async Task<IEnumerable<ReleaseInfo>> PerformQuery(TorznabQuery query)
-        {
-            var releases = new List<ReleaseInfo>();
-
-            var urls = new HashSet<string>
-            {
-                SiteLink,
-                SiteLink + "page/2/"
-            };
-
-            foreach (var url in urls)
-            {
-                var searchUrl = url;
-
-                var parameters = new NameValueCollection();
-
-                var searchString = query.GetQueryString().Trim();
-                if (!string.IsNullOrWhiteSpace(searchString))
-                {
-                    searchString = Regex.Replace(searchString, @"[\W]+", " ").Trim();
-                    parameters.Set("s", searchString);
-                    parameters.Set("tt", "1");
-                }
-
-                if (parameters.Count > 0)
-                {
-                    searchUrl += $"?{parameters.GetQueryString()}";
-                }
-
-                var response = await RequestWithCookiesAsync(searchUrl);
-
-                var pageReleases = ParseReleases(response);
-                releases.AddRange(pageReleases);
-
-                // Stop fetching the next page when less than 15 results are found.
-                if (pageReleases.Count < 15)
-                {
-                    break;
-                }
-            }
-
-            return releases;
         }
 
         public override async Task<byte[]> Download(Uri link)
@@ -169,18 +127,88 @@ namespace Jackett.Common.Indexers.Definitions
 
             return await base.Download(magnet);
         }
+    }
 
-        private List<ReleaseInfo> ParseReleases(WebResult response)
+    public class AudioBookBayRequestGenerator : IIndexerRequestGenerator
+    {
+        private readonly string _siteLink;
+
+        public AudioBookBayRequestGenerator(string siteLink)
+        {
+            _siteLink = siteLink;
+        }
+
+        public IndexerPageableRequestChain GetSearchRequests(TorznabQuery query)
+        {
+            var pageableRequests = new IndexerPageableRequestChain();
+
+            var queryParameters = new NameValueCollection();
+
+            var searchString = query.GetQueryString().Trim();
+
+            if (searchString.IsNotNullOrWhiteSpace())
+            {
+                searchString = Regex.Replace(searchString, @"[\W]+", " ").Trim().ToLower();
+                queryParameters.Set("s", searchString);
+                queryParameters.Set("tt", "1");
+            }
+
+            pageableRequests.Add(GetPagedRequests(queryParameters));
+
+            return pageableRequests;
+        }
+
+        private IEnumerable<IndexerRequest> GetPagedRequests(NameValueCollection queryParameters)
+        {
+            var pageUrls = new HashSet<string>
+            {
+                _siteLink,
+                _siteLink + "page/2/"
+            };
+
+            foreach (var pageUrl in pageUrls)
+            {
+                var searchUrl = pageUrl;
+
+                if (queryParameters.Count > 0)
+                {
+                    searchUrl += $"?{queryParameters.GetQueryString()}";
+                }
+
+                var webRequest = new WebRequest
+                {
+                    Url = searchUrl,
+                    Headers = new Dictionary<string, string>
+                    {
+                        { "Accept", "text/html" }
+                    },
+                };
+
+                yield return new IndexerRequest(webRequest);
+            }
+        }
+    }
+
+    public class AudioBookBayParser : IParseIndexerResponse
+    {
+        private readonly string _siteLink;
+
+        public AudioBookBayParser(string siteLink)
+        {
+            _siteLink = siteLink;
+        }
+
+        public IList<ReleaseInfo> ParseResponse(IndexerResponse indexerResponse)
         {
             var releases = new List<ReleaseInfo>();
 
-            using var dom = ParseHtmlDocument(response.ContentString);
+            using var dom = ParseHtmlDocument(indexerResponse.Content);
 
             var rows = dom.QuerySelectorAll("div.post:has(div[class=\"postTitle\"])");
             foreach (var row in rows)
             {
                 var detailsLink = row.QuerySelector("div.postTitle h2 a")?.GetAttribute("href")?.Trim().TrimStart('/');
-                var details = new Uri(SiteLink + detailsLink);
+                var details = new Uri(_siteLink + detailsLink);
 
                 var title = row.QuerySelector("div.postTitle")?.TextContent.Trim();
 
@@ -229,18 +257,6 @@ namespace Jackett.Common.Indexers.Definitions
             return releases;
         }
 
-        private Uri GetPosterUrl(string cover)
-        {
-            if (cover.IsNotNullOrWhiteSpace() &&
-                Uri.TryCreate(cover.StartsWith("http") ? cover : SiteLink + cover, UriKind.Absolute, out var posterUri) &&
-                (posterUri.Scheme == Uri.UriSchemeHttp || posterUri.Scheme == Uri.UriSchemeHttps))
-            {
-                return posterUri;
-            }
-
-            return null;
-        }
-
         private static IHtmlDocument ParseHtmlDocument(string response)
         {
             var parser = new HtmlParser();
@@ -256,6 +272,18 @@ namespace Jackett.Common.Indexers.Definitions
             }
 
             return dom;
+        }
+
+        private Uri GetPosterUrl(string cover)
+        {
+            if (cover.IsNotNullOrWhiteSpace() &&
+                Uri.TryCreate(cover.StartsWith("http") ? cover : _siteLink + cover, UriKind.Absolute, out var posterUri) &&
+                (posterUri.Scheme == Uri.UriSchemeHttp || posterUri.Scheme == Uri.UriSchemeHttps))
+            {
+                return posterUri;
+            }
+
+            return null;
         }
 
         private static string CleanTitle(string title)

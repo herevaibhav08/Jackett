@@ -1,13 +1,14 @@
 ---
 id: tocashare
-name: Toca Share
+name: Toca Share (API)
 description: "Toca Share is a PORTUGUESE Private Torrent Tracker for MOVIES / TV / GENERAL"
 language: pt-PT
 type: private
 encoding: UTF-8
 links:
-  - https://tocashare.com/
-  - https://tocashare.biz/
+  - https://tocashare.biz/ # due to expired 31 Mar 2025, new domain tba
+legacylinks:
+  - https://tocashare.com/ # expired 2nd Jan 2025
 
 caps:
   categorymappings:
@@ -70,6 +71,7 @@ login:
     - selector: a[href*="/login"]
       message:
         text: "The API key was not accepted by {{ .Config.sitelink }}."
+    - selector: :root:contains("Account is Banned")
 
 search:
   paths:
@@ -173,7 +175,7 @@ search:
       case:
         False: 1 # normal
         True: 2 # double
-# global MR is 0.4 but torrents must be seeded for 7 days regardless of ratio
+# global MR is 0.4 but torrents must be seeded for 5 days regardless of ratio
 #    minimumratio:
 #      text: 0.4
     minimumseedtime:

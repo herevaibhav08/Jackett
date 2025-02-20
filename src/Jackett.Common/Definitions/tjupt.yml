@@ -66,6 +66,7 @@ settings:
     default: "Banning rules for account inactivity:<ol><li>Within 180 days, an account is considered active if it meets any of the following conditions: has checked in for at least 1 day; has published at least 1 seed, fun box or new forum topic (non-reply); actually uploaded increments > 5TiB and the seeding integral increment is > 30W</li><li>Users of Megatron level and above ignore the inactivity rules and will keep their accounts forever</li><li>Users with Sword Down the Mountain and above will not be disabled due to inactivity after parking their accounts in the control panel</li><li>Un-parked accounts below the level of Megatron will be disabled if they have been 'inactive' for 180 consecutive days (Effective from 2024).</li><li>Accounts parked below the level of Down the Mountain with a Sword will be disabled if they are 'inactive' for 300 consecutive days (Effective from 2024).</li></ol>"
 
 login:
+  # switched from the form method to the cookie method due to #15184
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"
@@ -119,8 +120,11 @@ search:
       selector: a[href^="details.php?id="]
       attribute: href
     download:
-      selector: a[href^="download.php?id="]
+      selector: a[href^="details.php?id="]
       attribute: href
+      filters:
+        - name: replace
+          args: ["details", "download"]
     imdbid:
       selector: a[href*="imdb.com/title/tt"]
       attribute: href
@@ -155,21 +159,28 @@ search:
       selector: td:nth-child(8)
     downloadvolumefactor:
       case:
-        font.free: 0
-        font.twoupfree: 0
-        font.halfdown: 0.5
-        font.twouphalfdown: 0.5
-        font.thirtypercent: 0.3
+        img.pro_free: 0
+        img.pro_free2up: 0
+        img.pro_50pctdown: 0.5
+        img.pro_50pctdown2up: 0.5
+        img.pro_30pctdown: 0.3
         "*": 1
+    uploadvolumefactor_custom:
+      selector: span:has(img.arrowup)
+      optional: true
+      filters:
+        - name: replace
+          args: ["X", ""]
     uploadvolumefactor:
       case:
-        font.twouphalfdown: 2
-        font.twoupfree: 2
-        font.twoup: 2
+        img.pro_50pctdown2up: 2
+        img.pro_free2up: 2
+        img.pro_2up: 2
+        span:has(img.arrowup): "{{ .Result.uploadvolumefactor_custom }}"
         "*": 1
     minimumratio:
       text: 0.8
     description:
       selector: td:nth-child(2)
       remove: a, b, font, img, span
-# NexusPHP Standard v1.5 Beta 4 (custom ulvf dlvf)
+# NexusPHP Standard v1.5 Beta 4 (custom ulvf)

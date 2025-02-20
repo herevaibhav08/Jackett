@@ -10,7 +10,7 @@ links:
 
 caps:
   categorymappings:
-    - {id: "applications", cat: PC/Mac, desc: "Apps"}
+    - {id: "apps", cat: PC/Mac, desc: "Apps"}
     - {id: "games", cat: PC/Games, desc: Games}
     - {id: "design-assets", cat: Other, desc: Design Assets}
     - {id: "uncategorized", cat: Other, desc: Uncategorized}
@@ -23,9 +23,19 @@ settings:
     type: info_flaresolverr
 
 download:
-  selectors:
-    - selector: a[href$=".torrent"]
+  before:
+    pathselector:
+      selector: a[href^="/download?"]
       attribute: href
+      filters:
+        - name: replace
+          args: ["/download?", "/download/?"]
+  selectors:
+    - selector: script:contains("downloadLink")
+      usebeforeresponse: true
+      filters:
+        - name: regexp
+          args: "downloadLink = '(.+?)';"
 
 search:
   paths:

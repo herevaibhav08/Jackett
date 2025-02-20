@@ -161,7 +161,8 @@ namespace Jackett.Common.Indexers.Definitions.Abstract
                 var loginform = loginResultDocument.QuerySelector("#loginform");
                 if (loginform == null)
                 {
-                    throw new ExceptionWithConfigData(response.ContentString, configData);
+                    logger.Error(response.ContentString);
+                    throw new ExceptionWithConfigData("Unexpected response during login, see log for HTML response.", configData);
                 }
 
                 loginform.QuerySelector("table").Remove();
@@ -250,8 +251,9 @@ namespace Jackett.Common.Indexers.Definitions.Abstract
             var headers = apiKey != null ? new Dictionary<string, string> { [AuthorizationName] = string.Format(AuthorizationFormat, apiKey.Value) } : null;
 
             var response = await RequestWithCookiesAndRetryAsync(searchUrl, headers: headers);
+
             // we get a redirect in html pages and an error message in json response (api)
-            if (response.IsRedirect && !useApiKey)
+            if (response.IsRedirect && !useApiKey && configData.CookieItem.Value.IsNullOrWhiteSpace())
             {
                 // re-login only if API key is not in use.
                 await ApplyConfiguration(null);

@@ -69,6 +69,7 @@ settings:
     default: "Retention rules:<ol><li>[Veteran User] and above will be retained forever.</li><li>[Elite User] and above will not be deleted after parking their accounts (in the Control Panel).</li><li>Users with a parked account will be deleted if they do not log in for 400 consecutive days.</li><li>Users with a non-parked account will be deleted if they do not log in for 150 consecutive days.</li><li>Users with no traffic (i.e. upload/download data are both 0) will have their accounts deleted if they do not log in for 40 consecutive days.</li></ol>"
 
 login:
+  # using cookie method because the site uses Safeline WAF protection
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"
@@ -166,4 +167,4 @@ search:
     description:
       selector: td:nth-child(2)
       remove: a, b, font, img, span
-# NexusPHP v1.8.11 2024-03-27
+# NexusPHP v1.8.12 2024-07-13

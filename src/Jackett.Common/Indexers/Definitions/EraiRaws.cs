@@ -23,19 +23,19 @@ namespace Jackett.Common.Indexers.Definitions
         public override string[] AlternativeSiteLinks => new[]
         {
             "https://www.erai-raws.info/",
-            "https://beta.erai-raws.info/"
         };
         public override string[] LegacySiteLinks => new[]
         {
             "https://erairaws.mrunblock.bond/",
-            "https://erairaws.nocensor.cloud/"
+            "https://erairaws.nocensor.cloud/",
+            "https://beta.erai-raws.info/"
         };
         public override string Language => "en-US";
         public override string Type => "semi-private";
 
         public override TorznabCapabilities TorznabCaps => SetCapabilities();
 
-        const string RSS_PATH = "feed/?type=magnet";
+        const string RSS_PATH = "feed/?type=magnet&token=";
 
         public EraiRaws(IIndexerConfigurationService configService, Utils.Clients.WebClient wc, Logger l,
             IProtectionService ps, ICacheService cs)
@@ -91,7 +91,7 @@ namespace Jackett.Common.Indexers.Definitions
         private bool IsTitleDetailParsingEnabled => ((BoolConfigurationItem)configData.GetDynamic("title-detail-parsing")).Value;
         private bool IsSubsEnabled => ((BoolConfigurationItem)configData.GetDynamic("include-subs")).Value;
 
-        public string RssFeedUri => SiteLink + RSS_PATH + "&" + RSSKey;
+        public string RssFeedUri => SiteLink + RSS_PATH + RSSKey;
 
         public override async Task<IndexerConfigurationStatus> ApplyConfiguration(JToken configJson)
         {
@@ -122,6 +122,11 @@ namespace Jackett.Common.Indexers.Definitions
             var result = await RequestWithCookiesAndRetryAsync(RssFeedUri);
             if (result.IsRedirect)
                 result = await FollowIfRedirect(result);
+            if (result.ContentString.Contains("<status>403</status>"))
+            {
+                logger.Error("[EraiRaws] 403 Forbidden");
+                throw new Exception("The RSSkey may need to be replaced as EraiRaws returned 403 Forbidden.");
+            }
 
             // Parse as XML document
             var xmlDocument = new XmlDocument();
@@ -260,6 +265,10 @@ namespace Jackett.Common.Indexers.Definitions
                 var description = rssItem.SelectSingleNode("description")?.InnerText;
                 var quality = rssItem.SelectSingleNode("erai:resolution", nsm)?.InnerText;
                 var subs = rssItem.SelectSingleNode("erai:subtitles", nsm)?.InnerText;
+                if (string.IsNullOrEmpty(subs))
+                {
+                    subs = "[]";
+                }
 
                 item = new RssFeedItem
                 {
@@ -267,7 +276,7 @@ namespace Jackett.Common.Indexers.Definitions
                     Link = link,
                     InfoHash = infoHash,
                     PublishDate = publishDate,
-                    Size = size,
+                    Size = string.IsNullOrWhiteSpace(size) ? "512MB" : size,
                     Description = description,
                     Quality = quality,
                     SubTitles = subs

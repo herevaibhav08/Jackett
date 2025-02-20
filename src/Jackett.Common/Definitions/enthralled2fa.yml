@@ -50,6 +50,7 @@ settings:
     default: For best results, change the <b>Torrents per page:</b> setting to <b>100</b> on your account profile.
 
 login:
+  # using cookie method because login page can present second page for 2FA when enabled
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"
@@ -69,7 +70,7 @@ search:
     filter_freeleech: "{{ if .Config.freeleech }}1{{ else }}{{ end }}"
 
   rows:
-    selector: table#torrent_table > tbody > tr[class^="torrent row"]:has(a[href*="action=download"])
+    selector: table#torrent_table > tbody > tr[class^="torrent shaded_row"]:has(a[href*="action=download"])
 
   fields:
     category:

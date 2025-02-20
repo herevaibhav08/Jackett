@@ -2,7 +2,7 @@
 id: lat-team-api
 name: Lat-Team (API)
 description: "Lat-Team is a SPANISH Private Torrent Tracker for MOVIES / TV"
-language: es-ES
+language: es-MX
 type: private
 encoding: UTF-8
 links:
@@ -21,10 +21,12 @@ caps:
     - {id: 22, cat: TV/Other, desc: "Playlist_Collection"}
     - {id: 17, cat: PC, desc: "Software & O.S."}
     - {id: 12, cat: XXX, desc: "XXX"}
-    - {id: 18, cat: Books, desc: "E-Books"}
+    - {id: 18, cat: Books/EBook, desc: "E-Books"}
     - {id: 11, cat: Audio/Audiobook, desc: "Audiolibros"}
     - {id: 4, cat: Console, desc: "Juegos"}
     - {id: 24, cat: Other, desc: "Cursos"}
+    - {id: 29, cat: Books/Mags, desc: "Revistas & Periódicos"}
+    - {id: 30, cat: Books/Comics, desc: "Comics & Manga"}
 
   modes:
     search: [q]
@@ -65,6 +67,10 @@ settings:
     options:
       desc: desc
       asc: asc
+  - name: info_activity
+    type: info
+    label: Account Inactivity
+    default: "You must log in once every 90 days or seed at least 5 torrents to avoid having your account deactivated."
 
 login:
   path: /api/torrents
@@ -73,6 +79,7 @@ login:
     - selector: a[href*="/login"]
       message:
         text: "The API key was not accepted by {{ .Config.sitelink }}."
+    - selector: :root:contains("Account is Banned")
 
 search:
   paths:
@@ -168,7 +175,12 @@ search:
           args: "MM/dd/yyyy HH:mm:ss zzz"
     size:
       selector: size
-    downloadvolumefactor:
+    _featured:
+      selector: featured
+      case:
+        False: "{{ .False }}"
+        True: "{{ .True }}"
+    downloadvolumefactor_freeleech:
       # api returns 0%, 25%, 50%, 75%, 100%
       selector: freeleech
       case:
@@ -178,16 +190,20 @@ search:
         75%: 0.25
         100%: 0 # freeleech
         "*": 0 # catch errors
-    uploadvolumefactor:
+    downloadvolumefactor:
+      text: "{{ if .Result._featured }}0{{ else }}{{ .Result.downloadvolumefactor_freeleech }}{{ end }}"
+    uploadvolumefactor_double_upload:
       # api returns False, True
       selector: double_upload
       case:
         False: 1 # normal
         True: 2 # double
+    uploadvolumefactor:
+      text: "{{ if .Result._featured }}2{{ else }}{{ .Result.uploadvolumefactor_double_upload }}{{ end }}"
 # global MR is 0.25 but torrents must be seeded for 3 days regardless of ratio
 #    minimumratio:
 #      text: 0.25
     minimumseedtime:
       # 3 days (as seconds = 3 x 24 x 60 x 60)
       text: 259200
-# json UNIT3D 8.0.2 (custom)
+# json UNIT3D 8.3.4 (custom)

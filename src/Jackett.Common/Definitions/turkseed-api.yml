@@ -1,33 +1,35 @@
 ---
 id: turkseed-api
-name: TurkSeed
+name: TurkSeed (API)
 description: "TurkSeed is a TURKISH Private Torrent Tracker for MOVIES / TV / GENERAL"
 language: tr-TR
 type: private
 encoding: UTF-8
+certificates:
+  - dbb741dab386cdc63ef4ad16bf2bc1ec96f830dc # CN=turkseed.com when using dot net domain
 links:
   - https://turkseed.com/
+  - https://turkseed.net/
 
 caps:
   categorymappings:
-    - {id: 1, cat: Movies, desc: "Film"}
-    - {id: 6, cat: TV, desc: "Dizi Show"}
+    - {id: 1, cat: Movies/Foreign, desc: "Yabancı Film"}
     - {id: 2, cat: Movies, desc: "Yerli Film"}
-    - {id: 5, cat: TV/Foreign, desc: "Yabanci Dizi"}
-    - {id: 3, cat: Console, desc: "Oyunlar"}
-    - {id: 13, cat: TV, desc: "AMAZON"}
-    - {id: 14, cat: TV, desc: "NETFLİX DIZI"}
-    - {id: 15, cat: TV, desc: "DİSNEY+ MOVIE"}
-    - {id: 16, cat: TV, desc: "TODD"}
-    - {id: 17, cat: TV, desc: "TV+"}
-    - {id: 18, cat: TV, desc: "BLUTV"}
-    - {id: 19, cat: TV, desc: "EXXEN"}
-    - {id: 20, cat: TV, desc: "NETFLIX BELGESEL"}
+    - {id: 24, cat: Movies, desc: "Film (Boxet)"}
+    - {id: 6, cat: TV, desc: "Dizi / Show (Yerli)"}
+    - {id: 5, cat: TV/Foreign, desc: "Dizi / Show (Yabancı)"}
+    - {id: 18, cat: TV, desc: "Dizi (Boxet)"}
+    - {id: 25, cat: TV/Documentary, desc: "Belgesel"}
+    - {id: 28, cat: Console, desc: "GAME - OYUN"}
+    - {id: 26, cat: Other, desc: "Other"}
+    - {id: 27, cat: PC, desc: "PROGRAM"}
+    - {id: 30, cat: Audio, desc: "Music"}
 
   modes:
     search: [q]
     tv-search: [q, season, ep, imdbid, tvdbid, tmdbid]
     movie-search: [q, imdbid, tmdbid]
+    music-search: [q]
 
 settings:
   - name: apikey
@@ -73,6 +75,7 @@ login:
     - selector: a[href*="/login"]
       message:
         text: "The API key was not accepted by {{ .Config.sitelink }}."
+    - selector: :root:contains("Account is Banned")
 
 search:
   paths:
@@ -167,7 +170,12 @@ search:
           args: "MM/dd/yyyy HH:mm:ss zzz"
     size:
       selector: size
-    downloadvolumefactor:
+    _featured:
+      selector: featured
+      case:
+        False: "{{ .False }}"
+        True: "{{ .True }}"
+    downloadvolumefactor_freeleech:
       # api returns 0%, 25%, 50%, 75%, 100%
       selector: freeleech
       case:
@@ -177,15 +185,19 @@ search:
         75%: 0.25
         100%: 0 # freeleech
         "*": 0 # catch errors
-    uploadvolumefactor:
+    downloadvolumefactor:
+      text: "{{ if .Result._featured }}0{{ else }}{{ .Result.downloadvolumefactor_freeleech }}{{ end }}"
+    uploadvolumefactor_double_upload:
       # api returns False, True
       selector: double_upload
       case:
         False: 1 # normal
         True: 2 # double
+    uploadvolumefactor:
+      text: "{{ if .Result._featured }}2{{ else }}{{ .Result.uploadvolumefactor_double_upload }}{{ end }}"
     minimumratio:
       text: 0.6
     minimumseedtime:
-      # 7 days (as seconds = 7 x 24 x 60 x 60)
-      text: 604800
-# json UNIT3D 8.1.3
+      # 2 days (as seconds = 2 x 24 x 60 x 60)
+      text: 172800
+# json UNIT3D 8.3.6

@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Jackett.Common.Extensions;
 using Jackett.Common.Models;
@@ -32,6 +33,8 @@ namespace Jackett.Common.Indexers.Definitions
         public override TorznabCapabilities TorznabCaps => SetCapabilities();
 
         private string SearchUrl => SiteLink + "tor/js/loadSearchJSONbasic.php";
+
+        private static readonly Regex _SanitizeSearchQueryRegex = new Regex("[^\\w]+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private new ConfigurationDataMyAnonamouse configData => (ConfigurationDataMyAnonamouse)base.configData;
 
@@ -181,12 +184,23 @@ namespace Jackett.Common.Indexers.Definitions
 
         protected override async Task<IEnumerable<ReleaseInfo>> PerformQuery(TorznabQuery query)
         {
+            var releases = new List<ReleaseInfo>();
+
+            var term = _SanitizeSearchQueryRegex.Replace(query.GetQueryString(), " ").Trim();
+
+            if (query.SearchTerm.IsNotNullOrWhiteSpace() && term.IsNullOrWhiteSpace())
+            {
+                logger.Debug("Search term is empty after being sanitized, stopping search. Initial search term: '{0}'", query.SearchTerm);
+
+                return releases;
+            }
+
             var limit = query.Limit > 0 ? query.Limit : 100;
             var offset = query.Offset > 0 ? query.Offset : 0;
 
-            var qParams = new NameValueCollection
+            var parameters = new NameValueCollection
             {
-                {"tor[text]", query.GetQueryString()},
+                {"tor[text]", term},
                 {"tor[searchType]", configData.SearchType.Value},
                 {"tor[srchIn][title]", "true"},
                 {"tor[srchIn][author]", "true"},
@@ -201,38 +215,47 @@ namespace Jackett.Common.Indexers.Definitions
 
             if (configData.SearchInDescription.Value)
             {
-                qParams.Add("tor[srchIn][description]", "true");
+                parameters.Add("tor[srchIn][description]", "true");
             }
 
             if (configData.SearchInSeries.Value)
             {
-                qParams.Add("tor[srchIn][series]", "true");
+                parameters.Add("tor[srchIn][series]", "true");
             }
 
             if (configData.SearchInFilenames.Value)
             {
-                qParams.Add("tor[srchIn][filenames]", "true");
+                parameters.Add("tor[srchIn][filenames]", "true");
             }
 
-            var catList = MapTorznabCapsToTrackers(query);
+            if (configData.SearchLanguages.Values is { Length: > 0 })
+            {
+                var searchLanguages = configData.SearchLanguages.Values.Where(l => l != null);
+
+                foreach (var (language, index) in searchLanguages.Select((value, index) => (value, index)))
+                {
+                    parameters.Set($"tor[browse_lang][{index}]", language);
+                }
+            }
+
+            var catList = MapTorznabCapsToTrackers(query).Distinct().ToList();
+
             if (catList.Any())
             {
-                var index = 0;
-                foreach (var cat in catList)
+                foreach (var (category, index) in catList.Select((value, index) => (value, index)))
                 {
-                    qParams.Add("tor[cat][" + index + "]", cat);
-                    index++;
+                    parameters.Set($"tor[cat][{index}]", category);
                 }
             }
             else
             {
-                qParams.Add("tor[cat][]", "0");
+                parameters.Add("tor[cat][]", "0");
             }
 
             var urlSearch = SearchUrl;
-            if (qParams.Count > 0)
+            if (parameters.Count > 0)
             {
-                urlSearch += $"?{qParams.GetQueryString()}";
+                urlSearch += $"?{parameters.GetQueryString()}";
             }
 
             var response = await RequestWithCookiesAndRetryAsync(
@@ -247,47 +270,53 @@ namespace Jackett.Common.Indexers.Definitions
                 throw new Exception(response.ContentString);
             }
 
-            var releases = new List<ReleaseInfo>();
-
             try
             {
-                var jsonContent = JObject.Parse(response.ContentString);
                 var sitelink = new Uri(SiteLink);
 
-                var error = jsonContent.Value<string>("error");
+                var jsonResponse = JsonConvert.DeserializeObject<MyAnonamouseResponse>(response.ContentString);
+
+                var error = jsonResponse.Error;
                 if (error.IsNotNullOrWhiteSpace() && error.StartsWithIgnoreCase("Nothing returned, out of"))
                 {
                     return releases;
                 }
 
-                foreach (var item in jsonContent.Value<JArray>("data"))
+                if (jsonResponse.Data == null)
                 {
-                    var id = item.Value<long>("id");
-                    var link = new Uri(sitelink, "/tor/download.php?tid=" + id);
-                    var details = new Uri(sitelink, "/t/" + id);
+                    throw new Exception($"Unexpected response content from indexer request: {jsonResponse.Message ?? "Check the logs for more information."}");
+                }
+
+                foreach (var item in jsonResponse.Data)
+                {
+                    var id = item.Id;
+                    var link = new Uri(sitelink, $"/tor/download.php?tid={id}");
+                    var details = new Uri(sitelink, $"/t/{id}");
+
+                    var isFreeLeech = item.Free || item.PersonalFreeLeech;
 
                     var release = new ReleaseInfo
                     {
                         Guid = details,
-                        Title = item.Value<string>("title").Trim(),
-                        Description = item.Value<string>("description").Trim(),
+                        Title = item.Title.Trim(),
+                        Description = item.Description.Trim(),
                         Link = link,
                         Details = details,
-                        Category = MapTrackerCatToNewznab(item.Value<string>("category")),
-                        PublishDate = DateTime.ParseExact(item.Value<string>("added"), "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal).ToLocalTime(),
-                        Grabs = item.Value<long>("times_completed"),
-                        Files = item.Value<long>("numfiles"),
-                        Seeders = item.Value<int>("seeders"),
-                        Peers = item.Value<int>("seeders") + item.Value<int>("leechers"),
-                        Size = ParseUtil.GetBytes(item.Value<string>("size")),
-                        DownloadVolumeFactor = item.Value<bool>("free") ? 0 : 1,
+                        Category = MapTrackerCatToNewznab(item.Category),
+                        PublishDate = DateTime.ParseExact(item.Added, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal).ToLocalTime(),
+                        Grabs = item.Grabs,
+                        Files = item.NumFiles,
+                        Seeders = item.Seeders,
+                        Peers = item.Seeders + item.Leechers,
+                        Size = ParseUtil.GetBytes(item.Size),
+                        DownloadVolumeFactor = isFreeLeech ? 0 : 1,
                         UploadVolumeFactor = 1,
 
                         // MinimumRatio = 1, // global MR is 1.0 but torrents must be seeded for 3 days regardless of ratio
                         MinimumSeedTime = 259200 // 72 hours
                     };
 
-                    var authorInfo = item.Value<string>("author_info");
+                    var authorInfo = item.AuthorInfo;
                     if (authorInfo != null)
                     {
                         try
@@ -309,13 +338,13 @@ namespace Jackett.Common.Indexers.Definitions
 
                     var flags = new List<string>();
 
-                    var langCode = item.Value<string>("lang_code");
+                    var langCode = item.LanguageCode;
                     if (!string.IsNullOrEmpty(langCode))
                     {
                         flags.Add(langCode);
                     }
 
-                    var filetype = item.Value<string>("filetype");
+                    var filetype = item.Filetype;
                     if (!string.IsNullOrEmpty(filetype))
                     {
                         flags.Add(filetype.ToUpper());
@@ -326,7 +355,7 @@ namespace Jackett.Common.Indexers.Definitions
                         release.Title += " [" + string.Join(" / ", flags) + "]";
                     }
 
-                    if (item.Value<bool>("vip"))
+                    if (item.Vip)
                     {
                         release.Title += " [VIP]";
                     }
@@ -341,5 +370,38 @@ namespace Jackett.Common.Indexers.Definitions
 
             return releases;
         }
+    }
+
+    public class MyAnonamouseResponse
+    {
+        public string Error { get; set; }
+        public IReadOnlyCollection<MyAnonamouseTorrent> Data { get; set; }
+        public string Message { get; set; }
+    }
+
+    public class MyAnonamouseTorrent
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        [JsonProperty(PropertyName = "author_info")]
+        public string AuthorInfo { get; set; }
+        public string Description { get; set; }
+        [JsonProperty(PropertyName = "lang_code")]
+        public string LanguageCode { get; set; }
+        public string Filetype { get; set; }
+        public bool Vip { get; set; }
+        public bool Free { get; set; }
+        [JsonProperty(PropertyName = "personal_freeleech")]
+        public bool PersonalFreeLeech { get; set; }
+        [JsonProperty(PropertyName = "fl_vip")]
+        public bool FreeVip { get; set; }
+        public string Category { get; set; }
+        public string Added { get; set; }
+        [JsonProperty(PropertyName = "times_completed")]
+        public int Grabs { get; set; }
+        public int Seeders { get; set; }
+        public int Leechers { get; set; }
+        public int NumFiles { get; set; }
+        public string Size { get; set; }
     }
 }

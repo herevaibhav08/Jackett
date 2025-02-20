@@ -159,6 +159,10 @@ namespace Jackett.Common.Indexers.Definitions
         public override async Task<byte[]> Download(Uri link)
         {
             var wmPage = await RequestWithCookiesAndRetryAsync(link.ToString());
+            if (wmPage.ContentString.Contains("ERROR EL ARCHIVO NO EXISTE"))
+            {
+                throw new Exception("Error, the Download link at the requested path does not exist.");
+            }
             var wmDoc = new HtmlParser().ParseDocument(wmPage.ContentString);
             var enlacitoUrl = wmDoc.QuerySelector(".app-message a:not(.buttonPassword)")?.GetAttribute("href");
 
@@ -396,7 +400,7 @@ namespace Jackett.Common.Indexers.Definitions
                 result += "S" + matchSeason.Groups[1].Value.PadLeft(2, '0');
             }
 
-            var matchEpisode = new Regex(@"/capitulo-(\d+)(-al-(\d+))?/").Match(guid);
+            var matchEpisode = new Regex(@"/capitulo-(\d+)(-al-(\d+))?").Match(guid);
             if (matchSeason.Success && matchEpisode.Success)
             {
                 result += "E" + matchEpisode.Groups[1].Value.PadLeft(2, '0');

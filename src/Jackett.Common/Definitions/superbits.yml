@@ -7,6 +7,7 @@ type: private
 encoding: UTF-8
 links:
   - https://superbits.org/
+  - https://superbits.cc/
 
 caps:
   categorymappings:
@@ -82,6 +83,7 @@ settings:
     default: "If you have not logged in, via web browser, for 3 months, the account will be suspended. You can park your account in Settings which means that it will not be deleted for inactivity for at least 1 year."
 
 login:
+  # switched from the form method to the cookie method due to #12468
   method: cookie
   inputs:
     cookie: "{{ .Config.cookie }}"
